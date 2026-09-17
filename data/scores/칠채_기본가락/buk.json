@@ -1,0 +1,258 @@
+{
+  "instrument": "buk",
+  "source_image": null,
+  "cells": [
+    {
+      "id": "c1",
+      "label": "둥",
+      "strike_count": 1,
+      "measure": 1,
+      "bbox": {
+        "x": 10,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c2",
+      "label": "쉼",
+      "strike_count": 0,
+      "measure": 1,
+      "bbox": {
+        "x": 66,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c3",
+      "label": "둥",
+      "strike_count": 1,
+      "measure": 1,
+      "bbox": {
+        "x": 122,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c4",
+      "label": "둥",
+      "strike_count": 1,
+      "measure": 1,
+      "bbox": {
+        "x": 178,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c5",
+      "label": "쉼",
+      "strike_count": 0,
+      "measure": 1,
+      "bbox": {
+        "x": 234,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c6",
+      "label": "둥",
+      "strike_count": 1,
+      "measure": 2,
+      "bbox": {
+        "x": 310,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c7",
+      "label": "쉼",
+      "strike_count": 0,
+      "measure": 2,
+      "bbox": {
+        "x": 366,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c8",
+      "label": "둥",
+      "strike_count": 1,
+      "measure": 2,
+      "bbox": {
+        "x": 422,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c9",
+      "label": "둥",
+      "strike_count": 1,
+      "measure": 2,
+      "bbox": {
+        "x": 478,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c10",
+      "label": "쉼",
+      "strike_count": 0,
+      "measure": 2,
+      "bbox": {
+        "x": 534,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c11",
+      "label": "둥",
+      "strike_count": 1,
+      "measure": 3,
+      "bbox": {
+        "x": 610,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c12",
+      "label": "쉼",
+      "strike_count": 0,
+      "measure": 3,
+      "bbox": {
+        "x": 666,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c13",
+      "label": "둥",
+      "strike_count": 1,
+      "measure": 3,
+      "bbox": {
+        "x": 722,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c14",
+      "label": "둥",
+      "strike_count": 1,
+      "measure": 4,
+      "bbox": {
+        "x": 798,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c15",
+      "label": "쉼",
+      "strike_count": 0,
+      "measure": 4,
+      "bbox": {
+        "x": 854,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c16",
+      "label": "둥",
+      "strike_count": 1,
+      "measure": 4,
+      "bbox": {
+        "x": 910,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c17",
+      "label": "둥",
+      "strike_count": 1,
+      "measure": 5,
+      "bbox": {
+        "x": 986,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c18",
+      "label": "쉼",
+      "strike_count": 0,
+      "measure": 5,
+      "bbox": {
+        "x": 1042,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c19",
+      "label": "둥",
+      "strike_count": 1,
+      "measure": 5,
+      "bbox": {
+        "x": 1098,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c20",
+      "label": "둥",
+      "strike_count": 1,
+      "measure": 5,
+      "bbox": {
+        "x": 1154,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    },
+    {
+      "id": "c21",
+      "label": "쉼",
+      "strike_count": 0,
+      "measure": 5,
+      "bbox": {
+        "x": 1210,
+        "y": 10,
+        "w": 50,
+        "h": 60
+      }
+    }
+  ]
+}
