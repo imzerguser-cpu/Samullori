@@ -100,7 +100,9 @@ git commit -m "chore: scaffold project structure and dependencies"
 
 **Interfaces:**
 - Consumes: nothing (first domain module).
-- Produces: `Cell` (dataclass: `id: str, label: str, strike_count: int, measure: int, bbox: BBox`), `Score` (dataclass: `instrument: str, source_image: str, cells: list[Cell]`), `load_score(path) -> Score`, `score_from_dict(data: dict) -> Score`, `expected_onset_sequence(score: Score) -> list[str]`. Later tasks (onset detection, alignment, timeline) consume `Score`, `expected_onset_sequence`, and `Cell.measure`/`Cell.bbox`.
+- Produces: `Cell` (dataclass: `id: str, label: str, strike_count: int, measure: int, bbox: BBox, mnemonic: str | None = None`), `Score` (dataclass: `instrument: str, source_image: str, cells: list[Cell]`), `load_score(path) -> Score`, `score_from_dict(data: dict) -> Score`, `expected_onset_sequence(score: Score) -> list[str]`. Later tasks (onset detection, alignment, timeline) consume `Score`, `expected_onset_sequence`, and `Cell.measure`/`Cell.bbox`. The web player (Task 8) reads `Cell.mnemonic` for display only — it never affects alignment.
+
+**Note on `mnemonic`:** real gakbo tables sometimes pair a rhythm cell with a memorization word (e.g. "짜장면", "스파게티") written at the same beat position, purely so students can memorize the rhythm — it has no bearing on `strike_count` or timing. See `data/scores/가락보_표기_규칙.md` for the full transcription rules discovered from the teacher's actual gakbo material, and `data/scores/구음_기법표.md` for what each syllable (구음) technically means per instrument.
 
 - [ ] **Step 1: Write the failing tests**
 
@@ -116,7 +118,7 @@ def sample_data():
         "instrument": "janggu",
         "source_image": "scores/janggu_table.png",
         "cells": [
-            {"id": "c1", "label": "덩", "strike_count": 1, "measure": 1, "bbox": {"x": 0, "y": 0, "w": 10, "h": 10}},
+            {"id": "c1", "label": "덩", "strike_count": 1, "measure": 1, "bbox": {"x": 0, "y": 0, "w": 10, "h": 10}, "mnemonic": "짜"},
             {"id": "c2", "label": "쉼", "strike_count": 0, "measure": 1, "bbox": {"x": 10, "y": 0, "w": 10, "h": 10}},
             {"id": "c3", "label": "더러러", "strike_count": 3, "measure": 1, "bbox": {"x": 20, "y": 0, "w": 10, "h": 10}},
         ],
@@ -129,6 +131,12 @@ def test_score_from_dict_parses_cells():
     assert len(score.cells) == 3
     assert score.cells[0].label == "덩"
     assert score.cells[0].bbox.w == 10
+
+
+def test_score_from_dict_parses_optional_mnemonic():
+    score = score_from_dict(sample_data())
+    assert score.cells[0].mnemonic == "짜"
+    assert score.cells[1].mnemonic is None  # not every cell has one
 
 
 def test_score_from_dict_rejects_negative_strike_count():
@@ -174,6 +182,7 @@ class Cell:
     strike_count: int
     measure: int
     bbox: BBox
+    mnemonic: str | None = None
 
 
 @dataclass
@@ -201,6 +210,7 @@ def score_from_dict(data: dict) -> Score:
             strike_count=raw_cell["strike_count"],
             measure=raw_cell["measure"],
             bbox=BBox(**raw_cell["bbox"]),
+            mnemonic=raw_cell.get("mnemonic"),
         ))
     return Score(instrument=data["instrument"], source_image=data["source_image"], cells=cells)
 
@@ -218,7 +228,7 @@ def expected_onset_sequence(score: Score) -> list[str]:
 - [ ] **Step 4: Run the tests to verify they pass**
 
 Run: `source .venv/Scripts/activate && pytest tests/test_score_schema.py -v`
-Expected: 3 passed
+Expected: 4 passed
 
 - [ ] **Step 5: Commit**
 
@@ -763,9 +773,9 @@ Create `web/fixtures/dummy_score.json`:
   "instrument": "janggu",
   "source_image": null,
   "cells": [
-    {"id": "c1", "label": "덩", "strike_count": 1, "measure": 1, "bbox": {"x": 10, "y": 10, "w": 80, "h": 60}},
+    {"id": "c1", "label": "덩", "strike_count": 1, "measure": 1, "bbox": {"x": 10, "y": 10, "w": 80, "h": 60}, "mnemonic": "짜"},
     {"id": "c2", "label": "쉼", "strike_count": 0, "measure": 1, "bbox": {"x": 100, "y": 10, "w": 80, "h": 60}},
-    {"id": "c3", "label": "기덕", "strike_count": 1, "measure": 1, "bbox": {"x": 190, "y": 10, "w": 80, "h": 60}},
+    {"id": "c3", "label": "기덕", "strike_count": 1, "measure": 1, "bbox": {"x": 190, "y": 10, "w": 80, "h": 60}, "mnemonic": "면"},
     {"id": "c4", "label": "쿵", "strike_count": 1, "measure": 2, "bbox": {"x": 280, "y": 10, "w": 80, "h": 60}}
   ]
 }
@@ -917,7 +927,9 @@ async function init() {
       const box = document.createElement('div');
       box.className = 'cell-box';
       box.dataset.cellId = cell.id;
-      box.textContent = cell.label;
+      box.innerHTML = cell.mnemonic
+        ? `<span class="cell-label">${cell.label}</span><span class="cell-mnemonic">${cell.mnemonic}</span>`
+        : `<span class="cell-label">${cell.label}</span>`;
       box.style.left = cell.bbox.x + 'px';
       box.style.top = cell.bbox.y + 'px';
       box.style.width = cell.bbox.w + 'px';
@@ -985,7 +997,7 @@ body { font-family: sans-serif; margin: 0; padding: 16px; background: #fff; colo
 .panel img { display: block; max-width: 100%; }
 .cell-box {
   position: absolute;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
   border: 1px solid #999;
   font-size: 14px;
   box-sizing: border-box;
@@ -995,6 +1007,10 @@ body { font-family: sans-serif; margin: 0; padding: 16px; background: #fff; colo
   background: rgba(255, 200, 0, 0.65);
   border-color: rgb(230, 140, 0);
   border-width: 2px;
+}
+.cell-mnemonic {
+  font-size: 11px;
+  color: #666;
 }
 ```
 
@@ -1040,7 +1056,7 @@ python -m http.server 8000
 ```
 
 Open `http://localhost:8000/` in a browser and check:
-- The 장구 panel shows 4 boxes labeled 덩/쉼/기덕/쿵.
+- The 장구 panel shows 4 boxes labeled 덩/쉼/기덕/쿵, with 덩 and 기덕 also showing a small "짜"/"면" mnemonic word underneath (쉼 and 쿵 have none, since not every cell has a mnemonic).
 - Clicking 재생 starts audio and the boxes light up (yellow background) in order as playback passes each cell's time window; 쉼 lights up between 덩 and 기덕 even though it's silent.
 - Clicking 일시정지 stops audio and freezes the highlight.
 - Changing 배속 to 0.5x noticeably slows playback and the highlight timing slows with it.
@@ -1648,6 +1664,12 @@ git commit -m "test: verify multi-track show/mute and sync with a second fixture
 
 - **검수 도구 (manual correction UI):** the design spec calls for a waveform-based tool to manually fix bad alignments. This plan's `align.py` (Task 5) instead fails loudly with `AlignmentMismatchError` on any count mismatch rather than guessing — see that task's "Design decision" note for why. Whether a manual-correction UI is still worth building depends on how often real recordings actually trigger that error; decide after running Task 7/11's CLI against real audio a few times. If it comes up often, that's a follow-up plan: a small web page that plots the waveform (Web Audio API `getChannelData`) with detected onsets marked, letting you drag-add/remove onset markers and re-run `align_onsets` with a hand-edited detected-times list.
 - **정렬 오차 정량 측정 (accuracy measurement against real audio):** the spec's validation plan calls for measuring alignment error in milliseconds against real recordings. Not doable without real audio; do this manually once Task 7's real-file run is possible, by ear/eye comparison against the waveform, and note here if it needs to become an automated regression check.
+
+## Not yet in this plan: encoding the real gakbo patterns
+
+The teacher has already provided the real gakbo material (마동초 사물놀이1.pdf — 쩍쩍이굿, 타령장단, 칠채 기본/변형 가락, 벙어리 칠채, 육채, 별달거리, 휘모리, 짝쇠, etc.) and clarified three transcription rules now captured in `data/scores/가락보_표기_규칙.md`. Turning that PDF into actual `data/scores/*.json` files per instrument per jangdan is real work but doesn't need audio — it could be its own follow-up task/plan once:
+- the "털기읏" ambiguity in 타령장단 is resolved with the teacher (see the open question in `가락보_표기_규칙.md`), and
+- bbox coordinates are extracted from the real table image (needs the PDF converted to per-page images, then coordinates picked per cell — Task 8's dummy fixtures show the JSON shape but used made-up coordinates).
 
 ## Notes for whoever picks this up with real files
 
