@@ -1,0 +1,1933 @@
+<title>칠채 기본가락</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap">
+<style>
+  :root {
+    --bg: #f6f3ed;
+    --bg-card: #fdfbf7;
+    --ink: #2a2622;
+    --ink-muted: #857c6d;
+    --line: #ddd5c7;
+    --line-strong: #b9ae99;
+    --accent-kkwaenggwari: #b53d26;
+    --accent-janggu: #2b4c7e;
+    --accent-buk: #9c7115;
+    --accent-jing: #336850;
+    --shadow: 0 1px 2px rgba(42, 38, 34, 0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1916;
+      --bg-card: #262220;
+      --ink: #ece6da;
+      --ink-muted: #a89d8a;
+      --line: #3c352c;
+      --line-strong: #574e40;
+      --accent-kkwaenggwari: #e2724f;
+      --accent-janggu: #7fa1d6;
+      --accent-buk: #dcab41;
+      --accent-jing: #63ab88;
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1916;
+    --bg-card: #262220;
+    --ink: #ece6da;
+    --ink-muted: #a89d8a;
+    --line: #3c352c;
+    --line-strong: #574e40;
+    --accent-kkwaenggwari: #e2724f;
+    --accent-janggu: #7fa1d6;
+    --accent-buk: #dcab41;
+    --accent-jing: #63ab88;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Gowun Dodum", "Apple SD Gothic Neo", sans-serif;
+    padding-inline: 20px;
+    padding-block: 28px 48px;
+  }
+  .wrap { max-width: 2000px; margin-inline: auto; }
+
+  header { margin-bottom: 22px; }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    margin: 0 0 6px;
+  }
+  h1 {
+    font-family: "Gowun Batang", "Nanum Myeongjo", serif;
+    font-weight: 700;
+    font-size: clamp(28px, 4vw, 40px);
+    margin: 0 0 8px;
+    text-wrap: balance;
+  }
+  .lede {
+    margin: 0;
+    max-width: 62ch;
+    color: var(--ink-muted);
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+
+  .note {
+    margin-top: 16px;
+    border-left: 3px solid var(--accent-janggu);
+    background: var(--bg-card);
+    box-shadow: var(--shadow);
+    padding: 12px 16px;
+    font-size: 13.5px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    max-width: 62ch;
+  }
+  .note strong { color: var(--ink); font-weight: 400; }
+
+  .controls {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 14px 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  button.transport {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 8px 20px;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    cursor: pointer;
+  }
+  button.transport:focus-visible { outline: 2px solid var(--accent-janggu); outline-offset: 2px; }
+  button.transport.is-playing { background: var(--accent-kkwaenggwari); }
+
+  .tempo { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-muted); }
+  .tempo input[type="range"] { width: 140px; accent-color: var(--accent-janggu); }
+  .tempo output {
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    min-width: 3.5ch;
+  }
+
+  .legend { display: flex; gap: 16px; margin-left: auto; font-size: 12.5px; color: var(--ink-muted); flex-wrap: wrap; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend .swatch { width: 12px; height: 12px; border: 1.5px solid var(--line-strong); }
+  .legend .swatch.rest { border-style: dashed; }
+
+  .picker {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 720px) { .picker { grid-template-columns: 1fr; } }
+
+  .page-footer { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .page-footer .lede { margin: 0 0 10px; }
+  .page-footer .note { margin-top: 0; }
+  .picker-col {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    padding: 14px 16px;
+  }
+  .picker-col h2 {
+    margin: 0 0 10px;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .pattern-list, .playlist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .pattern-item, .playlist-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    font-size: 13.5px;
+  }
+  .pattern-item .name, .playlist-item .name { flex: 1 1 auto; min-width: 0; }
+  .playlist-item .name[data-jump] { cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; }
+  .playlist-item .name[data-jump]:hover { color: var(--accent-janggu); }
+  .playlist-item .order {
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-muted);
+    width: 1.4em;
+    flex: none;
+  }
+  .badge {
+    font-size: 10px;
+    padding: 2px 6px;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-muted);
+    white-space: nowrap;
+    flex: none;
+  }
+  .badge.unverified { color: var(--accent-kkwaenggwari); border-color: var(--accent-kkwaenggwari); }
+  .icon-btn {
+    font-family: inherit;
+    font-size: 12px;
+    padding: 4px 9px;
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    cursor: pointer;
+    flex: none;
+  }
+  .icon-btn:hover:not(:disabled) { background: var(--line); }
+  .icon-btn:disabled { opacity: 0.35; cursor: default; }
+  .playlist-empty, .library-empty {
+    color: var(--ink-muted);
+    font-size: 13px;
+    padding: 6px 2px;
+  }
+  .now-playing { margin: 20px 2px 0; font-size: 13px; color: var(--ink-muted); }
+  .now-playing strong { color: var(--ink); font-weight: 400; }
+  button.transport:disabled { opacity: 0.4; cursor: default; }
+
+  .track-controls { margin-top: 10px; }
+  .track-controls-label { font-size: 13px; color: var(--ink-muted); }
+  #trackToggles { display: flex; gap: 14px; flex-wrap: wrap; }
+  .track-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer; }
+  .track-toggle input { accent-color: var(--accent-janggu); width: 16px; height: 16px; }
+
+  .score-scroll {
+    margin-top: 26px;
+    padding-bottom: 8px;
+  }
+  .score-grid { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+
+  .row { display: flex; align-items: flex-start; gap: 14px; width: 100%; }
+  .row-label {
+    width: 84px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 19px;
+    font-weight: 700;
+    padding-right: 4px;
+    padding-top: 6px;
+  }
+  .row-label .dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+  /* fixed-size cells that wrap to a new line — every gakbo reads at the
+     same size no matter how many beats it has (long ones wrap like the
+     source spreadsheet's two-row blocks, instead of squeezing). */
+  .cells { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 4px; row-gap: 8px; }
+  .group-gap { width: 8px; height: 64px; flex: none; align-self: flex-start; position: relative; }
+  .group-gap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    left: 50%;
+    border-left: 1px dashed var(--line);
+  }
+  .row.group-header .cells { row-gap: 0; }
+  .group-label {
+    flex: none;
+    width: 56px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 4px;
+    height: 22px;
+    font-size: 11px;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  .cell {
+    flex: none;
+    width: 56px;
+    height: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--line);
+    background: var(--bg-card);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 140ms ease, transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+  }
+  .cell:hover { border-color: var(--line-strong); }
+  .cell.rest { border-style: dashed; color: var(--ink-muted); }
+  .cell .pos {
+    position: absolute;
+    top: 3px; left: 5px;
+    font-size: 10px;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .cell .label {
+    font-family: "Gowun Batang", "Nanum Myeongjo", serif;
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 24px;
+    line-height: 1;
+  }
+  .cell.rest .label { font-size: 16px; color: var(--ink-muted); }
+
+  @media (max-width: 480px) {
+    .cell { width: 44px; height: 52px; }
+    .group-label { width: 44px; }
+    .cell .label { font-size: 19px; }
+    .cell .pos { display: none; }
+  }
+
+  .cell.struck-kkwaenggwari { border-color: color-mix(in srgb, var(--accent-kkwaenggwari) 55%, var(--line)); }
+  .cell.struck-janggu { border-color: color-mix(in srgb, var(--accent-janggu) 55%, var(--line)); }
+  .cell.struck-buk { border-color: color-mix(in srgb, var(--accent-buk) 55%, var(--line)); }
+  .cell.struck-jing { border-color: color-mix(in srgb, var(--accent-jing) 55%, var(--line)); }
+
+  .cell.is-active {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+    border-width: 2px;
+  }
+  .cell.is-active.struck-kkwaenggwari { background: color-mix(in srgb, var(--accent-kkwaenggwari) 22%, var(--bg-card)); border-color: var(--accent-kkwaenggwari); color: var(--accent-kkwaenggwari); }
+  .cell.is-active.struck-janggu { background: color-mix(in srgb, var(--accent-janggu) 22%, var(--bg-card)); border-color: var(--accent-janggu); color: var(--accent-janggu); }
+  .cell.is-active.struck-buk { background: color-mix(in srgb, var(--accent-buk) 22%, var(--bg-card)); border-color: var(--accent-buk); color: var(--accent-buk); }
+  .cell.is-active.struck-jing { background: color-mix(in srgb, var(--accent-jing) 22%, var(--bg-card)); border-color: var(--accent-jing); color: var(--accent-jing); }
+
+  @media (max-width: 480px) {
+    .controls { gap: 14px; }
+    .legend { margin-left: 0; width: 100%; order: 3; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cell { transition: none; }
+    .cell.is-active { transform: none; }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">사물놀이 가락보 · 이어치기 미리보기</p>
+    <h1>가락 이어치기</h1>
+  </header>
+
+  <div class="controls">
+    <button class="transport" id="playBtn" type="button">재생</button>
+    <div class="tempo">
+      <label for="bpm">속도</label>
+      <button class="icon-btn" id="bpmDown" type="button">−10</button>
+      <input type="range" id="bpm" min="40" max="800" value="90" step="5">
+      <button class="icon-btn" id="bpmUp" type="button">+10</button>
+      <output id="bpmOut" for="bpm">90 BPM</output>
+    </div>
+    <div class="legend">
+      <span><span class="swatch"></span>친다</span>
+      <span><span class="swatch rest"></span>쉼</span>
+    </div>
+  </div>
+
+  <div class="controls track-controls">
+    <span class="track-controls-label">표시할 악기:</span>
+    <div id="trackToggles"></div>
+  </div>
+
+  <p class="now-playing" id="nowPlaying"></p>
+
+  <div class="score-scroll">
+    <div class="score-grid" id="scoreGrid"></div>
+  </div>
+
+  <div class="picker">
+    <div class="picker-col">
+      <h2>가락 목록</h2>
+      <ul class="pattern-list" id="libraryList"></ul>
+    </div>
+    <div class="picker-col">
+      <h2>재생 목록 (순서대로 이어서 재생)</h2>
+      <ol class="playlist" id="playlistList"></ol>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <p class="lede">실제로 연주할 가락만 골라 순서를 정하면, 이어서 재생하며 강조 표시를 보여줍니다. 신호가락처럼 꽹과리 혼자만 치는 구간은 다른 악기 줄이 아예 나타나지 않습니다.</p>
+    <div class="note">아직 실제 음원과 연결되지 않아, 위 배속으로 <strong>가상의 일정한 박자</strong>로 재생됩니다. 실제 음원 정렬이 끝나면 이 시뮬레이션 타이머 대신 정렬된 타임라인이 그대로 꽂히는 구조입니다.</div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  function makeCells(groups, labels) {
+    // groups: array of measure sizes, e.g. [5,5,3,3,5] or [8].
+    // labels: array of {label, mnemonic?} or null (rest), one per cell,
+    // same total length as the sum of groups.
+    var cells = [];
+    var i = 0;
+    groups.forEach(function (size, gi) {
+      for (var p = 0; p < size; p++) {
+        var entry = labels[i];
+        var cell = { id: "c" + (i + 1), measure: gi + 1 };
+        if (entry) {
+          cell.label = entry.label;
+          cell.strike_count = 1;
+          if (entry.mnemonic) cell.mnemonic = entry.mnemonic;
+        } else {
+          cell.label = "쉼";
+          cell.strike_count = 0;
+        }
+        cells.push(cell);
+        i++;
+      }
+    });
+    return cells;
+  }
+
+  function chilchaeCells(labels) {
+    // the 21-cell 5+5+3+3+5 grouping shared by every chilchae-family pattern
+    return makeCells([5, 5, 3, 3, 5], labels);
+  }
+
+  var M = null; // shorthand for "no strike" in the label arrays below
+
+  var PATTERNS = {
+    chilchae_gibon: {
+      name: "칠채 기본가락",
+      verified: true,
+      repeat: 4, // "4번 반복" applies to the whole pattern (메인+후렴 together), not just 후렴
+      sections: [
+        {
+          label: "메인",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: chilchaeCells([
+              { label: "갱", mnemonic: "짜" }, M, { label: "갱", mnemonic: "장" }, { label: "갱", mnemonic: "면" }, M,
+              { label: "갱", mnemonic: "짜" }, M, { label: "갱", mnemonic: "장" }, { label: "갱", mnemonic: "면" }, M,
+              { label: "갱", mnemonic: "짬" }, M, { label: "갱", mnemonic: "뽕" },
+              { label: "갱", mnemonic: "짬" }, M, { label: "갱", mnemonic: "뽕" },
+              { label: "갱", mnemonic: "짜" }, M, { label: "갱", mnemonic: "장" }, { label: "갱", mnemonic: "면" }, M
+            ]),
+            janggu: chilchaeCells([
+              { label: "덩" }, M, { label: "덩" }, { label: "덩" }, M,
+              { label: "덩" }, M, { label: "덩" }, { label: "덩" }, M,
+              { label: "덩" }, M, { label: "덩" },
+              { label: "덩" }, M, { label: "덩" },
+              { label: "덩" }, M, { label: "덩" }, { label: "덩" }, M
+            ]),
+            buk: chilchaeCells([
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" },
+              { label: "둥" }, M, { label: "둥" },
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M
+            ]),
+            jing: chilchaeCells([
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M, M, M
+            ])
+          }
+        },
+        {
+          // corrected from the teacher's Google Sheet: this second block is
+          // actually 15 cells (5+4+3+3), not the 36-cell version dictated
+          // earlier. kkwaenggwari's row mixes two mnemonic fragments
+          // ("짜_장면_" then "정_말_맛있_어요_") rather than a plain 갱 label,
+          // so it's used as the label directly here.
+          label: "후렴",
+          repeat: 4,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: makeCells([5, 4, 3, 3], [
+              { label: "짜" }, M, { label: "장" }, { label: "면" }, M,
+              { label: "정" }, M, { label: "말" }, M,
+              { label: "맛" }, { label: "있" }, M,
+              { label: "어" }, { label: "요" }, M
+            ]),
+            janggu: makeCells([5, 4, 3, 3], [
+              { label: "덩" }, M, { label: "덩" }, { label: "덩" }, M,
+              { label: "덩" }, M, { label: "덩" }, M,
+              { label: "덩" }, { label: "덩" }, M,
+              { label: "덩" }, { label: "덩" }, M
+            ]),
+            buk: makeCells([5, 4, 3, 3], [
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, M,
+              { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, { label: "둥" }, M
+            ]),
+            jing: makeCells([5, 4, 3, 3], [
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M,
+              M, M, M,
+              M, M, M
+            ])
+          }
+        }
+      ]
+    },
+    chilchae_byeonhyeong1: {
+      name: "칠채 변형가락1",
+      verified: true,
+      repeat: 2,
+      sections: [
+        {
+          label: "메인",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            // validated against the "짜파게티짜파게티떡볶이떡볶이짜파게티" mnemonic:
+            // 4+4+3+3+4 = 18 syllables, matching 18 struck cells out of 21.
+            kkwaenggwari: chilchaeCells([
+              { label: "갠", mnemonic: "짜" }, { label: "지", mnemonic: "파" }, { label: "개", mnemonic: "게" }, { label: "갱", mnemonic: "티" }, M,
+              { label: "갠", mnemonic: "짜" }, { label: "지", mnemonic: "파" }, { label: "개", mnemonic: "게" }, { label: "갱", mnemonic: "티" }, M,
+              { label: "갠", mnemonic: "떡" }, { label: "지", mnemonic: "볶" }, { label: "개", mnemonic: "이" },
+              { label: "갠", mnemonic: "떡" }, { label: "지", mnemonic: "볶" }, { label: "개", mnemonic: "이" },
+              { label: "갠", mnemonic: "짜" }, { label: "지", mnemonic: "파" }, { label: "개", mnemonic: "게" }, { label: "갱", mnemonic: "티" }, M
+            ]),
+            janggu: chilchaeCells([
+              { label: "궁" }, { label: "따" }, { label: "구" }, { label: "궁" }, M,
+              { label: "궁" }, { label: "따" }, { label: "구" }, { label: "궁" }, M,
+              { label: "궁" }, { label: "따" }, { label: "구" },
+              { label: "궁" }, { label: "따" }, { label: "구" },
+              { label: "궁" }, { label: "따" }, { label: "구" }, { label: "궁" }, M
+            ]),
+            // buk/jing unchanged from chilchae_gibon, per the "변형은 대부분 장구만 바뀐다" rule
+            buk: chilchaeCells([
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" },
+              { label: "둥" }, M, { label: "둥" },
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M
+            ]),
+            jing: chilchaeCells([
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M, M, M
+            ])
+          }
+        }
+      ]
+    },
+    chilchae_byeonhyeong2: {
+      name: "칠채 변형가락2",
+      verified: true,
+      repeat: 2,
+      sections: [
+        {
+          // corrected from the teacher's Google Sheet: same 21-cell shape as
+          // chilchae_byeonhyeong1 (not the 36-cell version dictated earlier).
+          // Every cell is struck for kkwaenggwari/janggu here; buk/jing match
+          // chilchae_gibon's main block exactly.
+          label: "메인",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: chilchaeCells([
+              { label: "갠", mnemonic: "야" }, { label: "지", mnemonic: "미" }, { label: "개", mnemonic: "마" }, { label: "갱", mnemonic: "라" }, { label: "지", mnemonic: "탕" },
+              { label: "갠", mnemonic: "야" }, { label: "지", mnemonic: "미" }, { label: "개", mnemonic: "마" }, { label: "갱", mnemonic: "라" }, { label: "지", mnemonic: "탕" },
+              { label: "갠", mnemonic: "마" }, { label: "지", mnemonic: "라" }, { label: "개", mnemonic: "탕" },
+              { label: "갠", mnemonic: "마" }, { label: "지", mnemonic: "라" }, { label: "개", mnemonic: "탕" },
+              { label: "갠", mnemonic: "야" }, { label: "지", mnemonic: "미" }, { label: "개", mnemonic: "마" }, { label: "갱", mnemonic: "라" }, { label: "지", mnemonic: "탕" }
+            ]),
+            janggu: chilchaeCells([
+              { label: "궁" }, { label: "따" }, { label: "구" }, { label: "궁" }, { label: "따" },
+              { label: "궁" }, { label: "따" }, { label: "구" }, { label: "궁" }, { label: "따" },
+              { label: "궁" }, { label: "따" }, { label: "구" },
+              { label: "궁" }, { label: "따" }, { label: "구" },
+              { label: "궁" }, { label: "따" }, { label: "구" }, { label: "궁" }, { label: "따" }
+            ]),
+            buk: chilchaeCells([
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" },
+              { label: "둥" }, M, { label: "둥" },
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M
+            ]),
+            jing: chilchaeCells([
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M, M, M
+            ])
+          }
+        },
+        {
+          label: "후렴",
+          repeat: 2,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: makeCells([5, 4, 3, 3], [
+              { label: "갠", mnemonic: "야" }, { label: "지", mnemonic: "미" }, { label: "개", mnemonic: "마" }, { label: "갱", mnemonic: "라" }, { label: "지", mnemonic: "탕" },
+              { label: "갠", mnemonic: "마" }, { label: "지", mnemonic: "라" }, { label: "갠", mnemonic: "탕" }, { label: "지", mnemonic: "도" },
+              { label: "개", mnemonic: "정" }, { label: "갱", mnemonic: "말" }, { label: "지", mnemonic: "로" },
+              { label: "개", mnemonic: "맛" }, { label: "갱", mnemonic: "있" }, { label: "지", mnemonic: "다" }
+            ]),
+            janggu: makeCells([5, 4, 3, 3], [
+              { label: "궁" }, { label: "따" }, { label: "구" }, { label: "궁" }, { label: "따" },
+              { label: "궁" }, { label: "따" }, { label: "궁" }, { label: "따" },
+              { label: "구" }, { label: "궁" }, { label: "따" },
+              { label: "구" }, { label: "궁" }, { label: "따" }
+            ]),
+            buk: makeCells([5, 4, 3, 3], [
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, M,
+              { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, { label: "둥" }, M
+            ]),
+            jing: makeCells([5, 4, 3, 3], [
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M,
+              M, M, M,
+              M, M, M
+            ])
+          }
+        }
+      ]
+    },
+    beoneori_chilchae_gagak1: {
+      name: "벙어리 칠채 가락1",
+      verified: true,
+      repeat: 2,
+      sections: [
+        {
+          label: "메인",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: chilchaeCells([
+              { label: "읏" }, M, { label: "지" }, { label: "갱" }, M,
+              { label: "읏" }, M, { label: "지" }, { label: "갱" }, M,
+              { label: "읏" }, M, { label: "개" },
+              { label: "읏" }, M, { label: "개" },
+              { label: "읏" }, M, { label: "지" }, { label: "갱" }, M
+            ]),
+            janggu: chilchaeCells([
+              { label: "궁" }, M, { label: "더" }, { label: "궁" }, M,
+              { label: "궁" }, M, { label: "더" }, { label: "궁" }, M,
+              { label: "궁" }, M, { label: "덩" },
+              { label: "궁" }, M, { label: "덩" },
+              { label: "궁" }, M, { label: "덩" }, { label: "궁" }, M
+            ]),
+            buk: chilchaeCells([
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" },
+              { label: "둥" }, M, { label: "둥" },
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M
+            ]),
+            jing: chilchaeCells([
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M, M, M
+            ])
+          }
+        },
+        {
+          label: "후렴",
+          repeat: 2,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: makeCells([5, 4, 3, 3], [
+              { label: "읏" }, M, { label: "지" }, { label: "갱" }, M,
+              { label: "읏" }, M, { label: "갱" }, M,
+              { label: "지" }, { label: "갱" }, M,
+              { label: "지" }, { label: "갱" }, M
+            ]),
+            janggu: makeCells([5, 4, 3, 3], [
+              { label: "궁" }, M, { label: "덩" }, { label: "궁" }, M,
+              { label: "궁" }, M, { label: "덩" }, M,
+              { label: "덩" }, { label: "궁" }, M,
+              { label: "덩" }, { label: "궁" }, M
+            ]),
+            buk: makeCells([5, 4, 3, 3], [
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, M,
+              { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, { label: "둥" }, M
+            ]),
+            jing: makeCells([5, 4, 3, 3], [
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M,
+              M, M, M,
+              M, M, M
+            ])
+          }
+        }
+      ]
+    },
+    beoneori_chilchae_gagak2: {
+      name: "벙어리 칠채 가락2",
+      verified: true,
+      repeat: 2,
+      sections: [
+        {
+          label: "메인",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: chilchaeCells([
+              { label: "읏" }, { label: "지" }, { label: "개" }, { label: "갱" }, M,
+              { label: "읏" }, { label: "지" }, { label: "개" }, { label: "갱" }, M,
+              { label: "읏" }, { label: "지" }, { label: "개" },
+              { label: "읏" }, { label: "지" }, { label: "개" },
+              { label: "읏" }, { label: "지" }, { label: "개" }, { label: "갱" }, M
+            ]),
+            janggu: chilchaeCells([
+              { label: "궁" }, { label: "따" }, { label: "더" }, { label: "궁" }, M,
+              { label: "궁" }, { label: "따" }, { label: "더" }, { label: "궁" }, M,
+              { label: "궁" }, { label: "따" }, { label: "더" },
+              { label: "궁" }, { label: "따" }, { label: "더" },
+              { label: "궁" }, { label: "따" }, { label: "더" }, { label: "궁" }, M
+            ]),
+            buk: chilchaeCells([
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" },
+              { label: "둥" }, M, { label: "둥" },
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M
+            ]),
+            jing: chilchaeCells([
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M, M, M
+            ])
+          }
+        },
+        {
+          label: "후렴",
+          repeat: 2,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: makeCells([5, 4, 3, 3], [
+              { label: "읏" }, { label: "지" }, { label: "개" }, { label: "갱" }, M,
+              { label: "읏" }, { label: "지" }, { label: "갱" }, M,
+              { label: "지" }, { label: "갱" }, M,
+              { label: "지" }, { label: "갱" }, M
+            ]),
+            janggu: makeCells([5, 4, 3, 3], [
+              { label: "궁" }, { label: "따" }, { label: "더" }, { label: "궁" }, M,
+              { label: "궁" }, { label: "따" }, { label: "덩" }, M,
+              { label: "더" }, { label: "궁" }, { label: "따" },
+              { label: "더" }, { label: "궁" }, M
+            ]),
+            buk: makeCells([5, 4, 3, 3], [
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, M,
+              { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, { label: "둥" }, M
+            ]),
+            jing: makeCells([5, 4, 3, 3], [
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M,
+              M, M, M,
+              M, M, M
+            ])
+          }
+        }
+      ]
+    },
+    chilchae_byeonhyeong3: {
+      name: "칠채 변형",
+      verified: true,
+      repeat: 4,
+      sections: [
+        {
+          label: "메인",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: chilchaeCells([
+              { label: "갱" }, { label: "지" }, { label: "갱" }, { label: "갱" }, { label: "지" },
+              { label: "갱" }, { label: "지" }, { label: "갱" }, { label: "갱" }, { label: "지" },
+              { label: "갱" }, { label: "지" }, { label: "갱" },
+              { label: "갱" }, { label: "지" }, { label: "갱" },
+              { label: "갱" }, { label: "지" }, { label: "갱" }, { label: "갱" }, { label: "지" }
+            ]),
+            janggu: chilchaeCells([
+              { label: "덩" }, { label: "다" }, { label: "덩" }, { label: "덩" }, { label: "다" },
+              { label: "덩" }, { label: "다" }, { label: "덩" }, { label: "덩" }, { label: "다" },
+              { label: "덩" }, { label: "다" }, { label: "덩" },
+              { label: "덩" }, { label: "다" }, { label: "덩" },
+              { label: "덩" }, { label: "다" }, { label: "덩" }, { label: "덩" }, { label: "다" }
+            ]),
+            buk: chilchaeCells([
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" },
+              { label: "둥" }, M, { label: "둥" },
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M
+            ]),
+            jing: chilchaeCells([
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M, M, M
+            ])
+          }
+        },
+        {
+          label: "후렴",
+          repeat: 4,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: makeCells([5, 4, 3, 3], [
+              { label: "갱" }, { label: "지" }, { label: "갱" }, { label: "갱" }, { label: "지" },
+              { label: "갱" }, { label: "지" }, { label: "갱" }, { label: "지" },
+              { label: "갱" }, { label: "갱" }, { label: "지" },
+              { label: "갱" }, { label: "갱" }, { label: "지" }
+            ]),
+            janggu: makeCells([5, 4, 3, 3], [
+              { label: "덩" }, { label: "다" }, { label: "덩" }, { label: "덩" }, { label: "다" },
+              { label: "덩" }, { label: "다" }, { label: "덩" }, { label: "다" },
+              { label: "덩" }, { label: "덩" }, { label: "다" },
+              { label: "덩" }, { label: "덩" }, { label: "다" }
+            ]),
+            buk: makeCells([5, 4, 3, 3], [
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, M,
+              { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, { label: "둥" }, M
+            ]),
+            jing: makeCells([5, 4, 3, 3], [
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M,
+              M, M, M,
+              M, M, M
+            ])
+          }
+        }
+      ]
+    },
+    chilchae_byeonhyeong3_sinho: {
+      name: "칠채 변형 끝 꽹과리 신호가락",
+      verified: true,
+      sections: [
+        {
+          label: "신호 (꽹과리 단독 — 다른 악기는 치지 않음)",
+          repeat: 1,
+          instruments: ["kkwaenggwari"],
+          cells: {
+            kkwaenggwari: ["갱", "지", "갱", "갱", "지", "개", "개", "갱", "개", "갱", "끕"].map(function (label, i) {
+              return { id: "c" + (i + 1), label: label, strike_count: 1, measure: 1 };
+            })
+          }
+        }
+      ]
+    },
+    byeoldalgeori_byeonhyeong: {
+      name: "별달거리 변형가락",
+      verified: true,
+      sections: [
+        {
+          label: "메인",
+          repeat: 4,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: makeCells([8], [{ label: "갱" }, { label: "갱" }, { label: "지" }, { label: "갠" }, { label: "지" }, { label: "갠" }, { label: "지" }, { label: "갱" }]),
+            janggu: makeCells([8], [{ label: "덩" }, M, { label: "덩" }, { label: "궁" }, { label: "따" }, { label: "궁" }, { label: "따" }, { label: "궁" }]),
+            buk: makeCells([8], [{ label: "둥" }, M, { label: "두" }, M, { label: "둥" }, M, { label: "두" }, M]),
+            jing: makeCells([8], [{ label: "징" }, M, M, M, M, M, M, { label: "징" }])
+          }
+        }
+      ]
+    },
+    byeoldalgeori_byeonhyeong_sinho: {
+      name: "별달거리 후 꽹과리 신호가락",
+      verified: true,
+      sections: [
+        {
+          label: "신호 (꽹과리 단독 — 다른 악기는 치지 않음)",
+          repeat: 1,
+          instruments: ["kkwaenggwari"],
+          cells: {
+            kkwaenggwari: ["지", "개", "갱", "지", "개", "갱", "지", "개", "개", "개", "개", "개", "갱"].map(function (label, i) {
+              return { id: "c" + (i + 1), label: label, strike_count: 1, measure: 1 };
+            })
+          }
+        }
+      ]
+    },
+    byeoldalgeori_saseol: {
+      name: "별달거리 사설",
+      verified: true,
+      sections: (function () {
+        // four lyric lines sharing one rhythm; only the gueum (lyric) row
+        // changes between repeats, the instrument rows stay the same.
+        var rhythmCells = {
+          kkwaenggwari: makeCells([8], [{ label: "갱" }, M, { label: "갱" }, M, { label: "개" }, { label: "개" }, { label: "갱" }, M]),
+          janggu: makeCells([8], [{ label: "덩" }, M, { label: "덩" }, M, { label: "궁" }, { label: "따" }, { label: "궁" }, M]),
+          buk: makeCells([8], [{ label: "둥" }, M, { label: "두" }, M, { label: "둥" }, M, { label: "두" }, M]),
+          jing: makeCells([8], [{ label: "징" }, M, M, M, M, M, M, { label: "징" }])
+        };
+        var lines = [
+          ["하", "늘", "보", "고", "별", "을", "따", "고"],
+          ["땅", "을", "보", "고", "농", "사", "짓", "고"],
+          ["올", "해", "도", null, "대", "풍", "이", "요"],
+          ["내", "년", "에", "도", "풍", "년", "일", "세"],
+          ["달", "아", "달", "아", "밝", "은", "달", "아"],
+          ["대", "낮", "같", "이", "밝", "은", "달", "아"],
+          ["어", "둠", "속", "에", "불", "빛", "이", null],
+          ["우", "리", "네", "를", "비", "춰", "주", "네"]
+        ];
+        return lines.map(function (words, i) {
+          return {
+            label: "사설 " + (i + 1) + "구",
+            repeat: 1,
+            instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+            cells: Object.assign({
+              gueum: makeCells([8], words.map(function (w) { return w ? { label: w } : M; }))
+            }, rhythmCells)
+          };
+        });
+      })()
+    },
+    hwimori_doip: {
+      name: "휘모리 도입가락",
+      verified: true,
+      sections: [
+        {
+          label: "메인",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: makeCells([8], [{ label: "그랑" }, M, { label: "그랑" }, M, { label: "갱" }, M, { label: "급" }, M]),
+            janggu: makeCells([8], [{ label: "기덩" }, M, { label: "따" }, { label: "따" }, { label: "쿵" }, { label: "기따" }, { label: "쿵" }, M]),
+            buk: makeCells([8], [{ label: "둥" }, M, { label: "두" }, M, { label: "둥" }, M, { label: "두" }, M]),
+            jing: makeCells([8], [{ label: "징" }, M, M, M, M, M, M, M])
+          }
+        },
+        {
+          label: "마무리",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: makeCells([4], [{ label: "갱" }, { label: "갱" }, { label: "갱" }, { label: "갱" }]),
+            janggu: makeCells([4], [{ label: "기덩" }, { label: "기덩" }, { label: "기덩" }, { label: "기덩" }]),
+            buk: makeCells([4], [{ label: "둥" }, { label: "둥" }, { label: "둥" }, { label: "둥" }]),
+            jing: makeCells([4], [{ label: "징" }, { label: "징" }, { label: "징" }, { label: "징" }])
+          }
+        }
+      ]
+    },
+    hwimori_gibon_sinho: {
+      name: "휘모리 후 짝쇠 신호가락",
+      verified: true,
+      sections: [
+        {
+          label: "신호 (꽹과리 단독 — 다른 악기는 치지 않음)",
+          repeat: 1,
+          instruments: ["kkwaenggwari"],
+          cells: {
+            kkwaenggwari: ["지", "개", "갱", "지", "개", "갱", "갱", "갱", "갱", "급"].map(function (label, i) {
+              return { id: "c" + (i + 1), label: label, strike_count: 1, measure: 1 };
+            })
+          }
+        }
+      ]
+    },
+    jjaksoe: {
+      name: "짝쇠",
+      verified: true,
+      sections: [
+        {
+          // sangsoe/busoe (lead/second gongs) trade "친구야 사랑해" back and
+          // forth while janggu/buk/jing keep a steady pulse underneath.
+          label: "친구야 사랑해",
+          repeat: 1,
+          instruments: ["sangsoe", "busoe", "janggu", "buk", "jing"],
+          cells: {
+            sangsoe: makeCells([16], [
+              { label: "갱" }, M, M, M, M, M, M, M,
+              { label: "갱" }, M, M, M, { label: "갱" }, M, { label: "갱" }, M
+            ]),
+            busoe: makeCells([16], [
+              M, M, M, M, { label: "갱" }, M, M, M,
+              { label: "갱" }, M, M, M, { label: "갱" }, M, { label: "갱" }, M
+            ]),
+            janggu: makeCells([16], [
+              { label: "듭" }, M, { label: "갱" }, M, { label: "듭" }, M, { label: "갱" }, M,
+              { label: "듭" }, M, { label: "갱" }, M, { label: "듭" }, M, { label: "갱" }, M
+            ]),
+            buk: makeCells([16], [
+              { label: "개" }, { label: "개" }, { label: "갱" }, M, { label: "개" }, { label: "개" }, { label: "갱" }, M,
+              { label: "개" }, { label: "개" }, { label: "갱" }, M, { label: "개" }, { label: "개" }, { label: "갱" }, M
+            ]),
+            jing: makeCells([16], [M, M, M, M, M, M, M, M, M, M, M, M, M, M, M, M])
+          }
+        }
+      ]
+    },
+    hwimori_gibon: {
+      name: "휘모리 기본가락",
+      verified: true,
+      sections: [
+        {
+          label: "메인",
+          repeat: 4,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            // confirmed cell-by-cell by the teacher: same rest positions
+            // (2,4,8) across all four instruments.
+            kkwaenggwari: makeCells([8], [{ label: "갱" }, M, { label: "갱" }, M, { label: "개" }, { label: "개" }, { label: "갱" }, M]),
+            janggu: makeCells([8], [{ label: "덩" }, M, { label: "덩" }, M, { label: "쿵" }, { label: "따" }, { label: "쿵" }, M]),
+            buk: makeCells([8], [{ label: "둥" }, M, { label: "두" }, M, { label: "둥" }, M, { label: "두" }, M]),
+            jing: makeCells([8], [{ label: "징" }, M, M, M, M, M, M, M])
+          }
+        },
+        {
+          // "4번 치고 나서 마지막" — closing cadence after the 4 repeats above
+          label: "마지막",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: makeCells([9], [{ label: "갱" }, M, M, M, { label: "개" }, { label: "개" }, { label: "갱" }, M, { label: "갱" }]),
+            janggu: makeCells([9], [{ label: "덩" }, M, M, M, { label: "쿵" }, { label: "따" }, { label: "쿵" }, M, { label: "덩" }]),
+            buk: makeCells([9], [{ label: "둥" }, M, M, M, { label: "둥" }, M, M, M, { label: "둥" }]),
+            jing: makeCells([9], [{ label: "징" }, M, M, M, M, M, M, M, { label: "징" }])
+          }
+        }
+      ]
+    },
+    byeoldalgeori_gibon: {
+      name: "별달거리 기본가락",
+      verified: true,
+      sections: [
+        {
+          label: "메인",
+          repeat: 4,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            // confirmed cell-by-cell by the teacher
+            kkwaenggwari: makeCells([8], [{ label: "갱" }, M, { label: "갱" }, { label: "지" }, { label: "갠" }, { label: "지" }, { label: "갱" }, M]),
+            janggu: makeCells([8], [{ label: "덩" }, M, { label: "덩" }, M, { label: "궁" }, { label: "따" }, { label: "궁" }, M]),
+            buk: makeCells([8], [{ label: "둥" }, M, { label: "둥" }, M, { label: "두" }, M, { label: "두" }, M]),
+            jing: makeCells([8], [{ label: "징" }, M, M, M, M, M, M, M])
+          }
+        }
+      ]
+    },
+    yukchae: {
+      name: "육채",
+      verified: true,
+      sections: (function () {
+        // validated: mnemonic "정말맛있어요" (6 syllables) matches 6 struck
+        // cells out of 10 (4+3+3), and janggu/buk both strike the same 6.
+        // jing never strikes in yukchae.
+        var yukchaeCells = {
+          kkwaenggwari: makeCells([4, 3, 3], [
+            { label: "갱", mnemonic: "정" }, M, { label: "갱", mnemonic: "말" }, M,
+            { label: "갱", mnemonic: "맛" }, { label: "갱", mnemonic: "있" }, M,
+            { label: "갱", mnemonic: "어" }, { label: "갱", mnemonic: "요" }, M
+          ]),
+          janggu: makeCells([4, 3, 3], [
+            { label: "덩" }, M, { label: "덩" }, M,
+            { label: "덩" }, { label: "덩" }, M,
+            { label: "덩" }, { label: "덩" }, M
+          ]),
+          buk: makeCells([4, 3, 3], [
+            { label: "둥" }, M, { label: "둥" }, M,
+            { label: "둥" }, { label: "둥" }, M,
+            { label: "둥" }, { label: "둥" }, M
+          ]),
+          jing: makeCells([4, 3, 3], [M, M, M, M, M, M, M, M, M, M])
+        };
+        var instruments = ["kkwaenggwari", "janggu", "buk", "jing"];
+        // the source page doesn't give rhythm cells for these directions —
+        // it reuses the same cells above and just says how to play them.
+        // closing tail: "위에 다 치고 나서 마지막 다같이" — everyone lands
+        // together on the same cadence after all the repeats above.
+        var closingCells = {
+          gueum: makeCells([4, 3, 3], [
+            { label: "정" }, { label: "말" }, { label: "로" }, M,
+            { label: "맛" }, { label: "있" }, M,
+            { label: "딱" }, M, M
+          ]),
+          kkwaenggwari: makeCells([4, 3, 3], [
+            { label: "갱" }, { label: "갱" }, { label: "갱" }, M,
+            { label: "갱" }, { label: "갱" }, M,
+            { label: "딱" }, M, M
+          ]),
+          janggu: makeCells([4, 3, 3], [
+            { label: "덩" }, { label: "덩" }, { label: "덩" }, M,
+            { label: "덩" }, { label: "덩" }, M,
+            { label: "따" }, M, M
+          ]),
+          buk: makeCells([4, 3, 3], [
+            { label: "둥" }, { label: "둥" }, { label: "둥" }, M,
+            { label: "둥" }, { label: "둥" }, M,
+            { label: "딱" }, M, M
+          ]),
+          jing: makeCells([4, 3, 3], [M, M, M, M, M, M, M, M, M, M])
+        };
+
+        return [
+          { label: "크게", note: "세게 친다", repeat: 4, instruments: instruments, cells: yukchaeCells },
+          { label: "작게", note: "여리게 친다", repeat: 4, instruments: instruments, cells: yukchaeCells },
+          { label: "주고받기", note: "부쇠와 번갈아 친다", repeat: 8, instruments: instruments, cells: yukchaeCells },
+          { label: "점점 빠르게", note: "매 반복마다 속도를 올린다", repeat: 8, instruments: instruments, cells: yukchaeCells },
+          { label: "마지막 다같이", note: "모두 함께 맺는다", repeat: 1, instruments: instruments, cells: closingCells }
+        ];
+      })()
+    },
+    beoneori_chilchae_sinho: {
+      name: "벙어리 칠채 신호가락",
+      verified: true,
+      sections: [
+        {
+          // confirmed cell-by-cell, 36 cells. The 구음 row (spoken mnemonic)
+          // has its own short breathing pauses at cells 30 and 33 where the
+          // instruments keep playing — so it's given as its own independent
+          // row rather than derived from kkwaenggwari's cells.
+          label: "신호",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            gueum: makeCells([36], [
+              { label: "스" }, { label: "파" }, { label: "게" }, { label: "티" }, M,
+              { label: "스" }, { label: "파" }, { label: "게" }, { label: "티" }, M,
+              { label: "바" }, { label: "게" }, { label: "트" }, { label: "바" }, { label: "게" }, { label: "트" },
+              { label: "스" }, { label: "파" }, { label: "게" }, { label: "티" }, M,
+              { label: "스" }, { label: "파" }, { label: "게" }, { label: "티" }, M,
+              { label: "양" }, { label: "식" }, { label: "도" }, M,
+              { label: "맛" }, { label: "있" }, M,
+              { label: "겠" }, { label: "다" }, M
+            ]),
+            kkwaenggwari: makeCells([36], [
+              { label: "갠" }, { label: "지" }, { label: "개" }, { label: "갱" }, M,
+              { label: "갠" }, { label: "지" }, { label: "개" }, { label: "갱" }, M,
+              { label: "갠" }, { label: "지" }, { label: "개" }, { label: "갠" }, { label: "지" }, { label: "개" }, { label: "갠" }, { label: "지" }, { label: "개" }, { label: "갱" }, M,
+              { label: "갠" }, { label: "지" }, { label: "개" }, { label: "갱" }, M,
+              { label: "갠" }, { label: "지" }, { label: "갠" }, { label: "지" }, { label: "개" }, { label: "갠" }, { label: "지" }, { label: "개" }, { label: "갱" }, M
+            ]),
+            janggu: makeCells([36], [
+              { label: "덩" }, { label: "궁" }, { label: "덩" }, { label: "궁" }, M,
+              { label: "덩" }, { label: "궁" }, { label: "덩" }, { label: "궁" }, M,
+              { label: "덩" }, { label: "궁" }, { label: "덩" }, { label: "궁" }, { label: "덩" }, { label: "덩" }, { label: "궁" }, { label: "덩" }, { label: "덩" }, { label: "궁" }, M,
+              { label: "덩" }, { label: "궁" }, { label: "덩" }, { label: "궁" }, M,
+              { label: "덩" }, { label: "궁" }, { label: "덩" }, M,
+              { label: "덩" }, { label: "궁" }, M,
+              { label: "덩" }, { label: "궁" }, M
+            ]),
+            buk: makeCells([36], [
+              { label: "둥" }, M, { label: "두" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "두" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M, { label: "두" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "두" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, M,
+              { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, { label: "둥" }, M
+            ]),
+            jing: makeCells([36], [
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M, M, M, M, M, M, M
+            ])
+          }
+        }
+      ]
+    },
+    beoneori_chilchae_sinho2: {
+      name: "벙어리 칠채 신호가락2",
+      verified: true,
+      sections: [
+        {
+          // confirmed cell-by-cell, 36 cells, no gueum (구음 = 없음).
+          // buk/jing are identical to every other 36-cell chilchae-family
+          // pattern already encoded.
+          label: "신호",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: makeCells([36], Array(29).fill({ label: "갱" }).concat([
+              M, { label: "갱" }, { label: "갱" }, M, { label: "갱" }, { label: "갱" }, M
+            ])),
+            janggu: makeCells([36], [
+              { label: "덩" }, { label: "궁" }, { label: "덩" }, { label: "궁" }, { label: "덩" }, { label: "덩" }, { label: "궁" }, { label: "덩" }, { label: "궁" }, { label: "덩" },
+              { label: "덩" }, { label: "궁" }, { label: "덩" }, { label: "궁" }, { label: "덩" }, { label: "덩" }, { label: "궁" }, { label: "덩" }, { label: "덩" }, { label: "궁" },
+              { label: "덩" }, { label: "덩" }, { label: "궁" }, { label: "덩" }, { label: "궁" }, { label: "덩" }, { label: "덩" }, { label: "궁" }, { label: "덩" },
+              M, { label: "덩" }, { label: "궁" }, M, { label: "덩" }, { label: "궁" }, M
+            ]),
+            buk: makeCells([36], [
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M, { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M, { label: "둥" }, M, { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, { label: "둥" }, M
+            ]),
+            jing: makeCells([36], [
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M,
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M, M,
+              { label: "징" }, M, M, M, M, M, M, M, M, M
+            ])
+          }
+        }
+      ]
+    },
+    taryeong: {
+      name: "타령장단",
+      verified: true,
+      sections: [
+        {
+          // corrected from the teacher's Google Sheet: 24 cells (8x3), both
+          // verses ("...얼쑤" and "...절쑤") already written out in full.
+          // 얼/쑤 are a shared group chant that only appears in the 구음/lyric
+          // row, not in any instrument's own row.
+          label: "메인",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            gueum: makeCells([3, 3, 3, 3, 3, 3, 3, 3], [
+              { label: "찹" }, M, M,
+              { label: "쌀" }, M, { label: "떡" },
+              { label: "콩" }, M, { label: "떡" },
+              { label: "얼" }, M, { label: "쑤" },
+              { label: "찹" }, M, M,
+              { label: "쌀" }, M, { label: "떡" },
+              { label: "콩" }, M, { label: "떡" },
+              { label: "절" }, M, { label: "쑤" }
+            ]),
+            kkwaenggwari: makeCells([3, 3, 3, 3, 3, 3, 3, 3], [
+              { label: "갱" }, M, M,
+              { label: "쩍" }, M, { label: "쩍" },
+              { label: "갱" }, M, { label: "쩍" },
+              M, M, M,
+              { label: "갱" }, M, M,
+              { label: "쩍" }, M, { label: "쩍" },
+              { label: "갱" }, M, { label: "쩍" },
+              M, M, M
+            ]),
+            janggu: makeCells([3, 3, 3, 3, 3, 3, 3, 3], [
+              { label: "덩" }, M, M,
+              { label: "따" }, M, { label: "따" },
+              { label: "덩" }, M, { label: "따" },
+              M, M, M,
+              { label: "덩" }, M, M,
+              { label: "따" }, M, { label: "따" },
+              { label: "덩" }, M, { label: "따" },
+              M, M, M
+            ]),
+            buk: makeCells([3, 3, 3, 3, 3, 3, 3, 3], [
+              { label: "둥" }, M, M,
+              { label: "딱" }, M, { label: "딱" },
+              { label: "둥" }, M, { label: "딱" },
+              M, M, M,
+              { label: "둥" }, M, M,
+              { label: "딱" }, M, { label: "딱" },
+              { label: "둥" }, M, { label: "딱" },
+              M, M, M
+            ]),
+            jing: makeCells([3, 3, 3, 3, 3, 3, 3, 3], [
+              { label: "징" }, M, M,
+              M, M, M,
+              M, M, M,
+              M, M, M,
+              { label: "징" }, M, M,
+              M, M, M,
+              M, M, M,
+              M, M, M
+            ])
+          }
+        },
+        {
+          // "털기": a continuous flowing roll over the first 6 cells, then a
+          // steadier pattern. jing provisionally set to strike only the very
+          // first cell (teacher's placeholder call, pending a fuller check).
+          label: "털기 (다같이)",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: makeCells([24], [
+              { label: "개" }, { label: "르" }, { label: "르" }, { label: "르" }, { label: "르" }, { label: "읏" }, M,
+              { label: "갱" }, { label: "갱" }, M, { label: "갱" }, M, { label: "갱" }, M, { label: "갱" }, { label: "갱" }, M,
+              { label: "갱" }, { label: "갱" }, M, { label: "갱" }, { label: "갱" }, M, M
+            ]),
+            janggu: makeCells([24], [
+              { label: "덩" }, { label: "더" }, { label: "더" }, { label: "더" }, { label: "더" }, { label: "따" }, M,
+              { label: "덩" }, { label: "덩" }, M, { label: "덩" }, M, { label: "덩" }, M, { label: "덩" }, { label: "덩" }, M,
+              { label: "덩" }, { label: "덩" }, M, { label: "덩" }, { label: "덩" }, M, M
+            ]),
+            buk: makeCells([24], [
+              { label: "둥" }, { label: "두" }, { label: "두" }, { label: "두" }, { label: "두" }, { label: "딱" }, M,
+              { label: "둥" }, { label: "둥" }, M, { label: "둥" }, M, { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, { label: "둥" }, M, { label: "둥" }, { label: "둥" }, M, M
+            ]),
+            jing: makeCells([24], [
+              { label: "징" }, M, M, M, M, M, M,
+              M, M, M, M, M, M, M, M, M, M,
+              M, M, M, M, M, M, M
+            ])
+          }
+        },
+        {
+          label: "털기 마무리 (장구 단독 — 다른 악기는 치지 않음)",
+          repeat: 1,
+          instruments: ["janggu"],
+          cells: {
+            janggu: makeCells([4], [{ label: "궁" }, M, { label: "따" }, { label: "따" }])
+          }
+        }
+      ]
+    },
+    jjeokjjeogi_gut: {
+      name: "쩍쩍이굿",
+      verified: true,
+      sections: [
+        {
+          // confirmed cell-by-cell: 24 cells (6x4), the first 3 groups are
+          // identical and the 4th group is a shortened cadence variant.
+          // jing strikes only at the start of groups 1 and 3.
+          label: "메인",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: makeCells([6, 6, 6, 6], [
+              { label: "갱" }, M, M, { label: "갱" }, { label: "갱" }, M,
+              { label: "갱" }, M, M, { label: "갱" }, { label: "갱" }, M,
+              { label: "갱" }, M, M, { label: "갱" }, { label: "갱" }, M,
+              { label: "갱" }, M, { label: "갱" }, M, M, M
+            ]),
+            janggu: makeCells([6, 6, 6, 6], [
+              { label: "덩" }, M, M, { label: "덩" }, { label: "덩" }, M,
+              { label: "덩" }, M, M, { label: "덩" }, { label: "덩" }, M,
+              { label: "덩" }, M, M, { label: "덩" }, { label: "덩" }, M,
+              { label: "덩" }, M, { label: "덩" }, M, M, M
+            ]),
+            buk: makeCells([6, 6, 6, 6], [
+              { label: "둥" }, M, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, M, { label: "둥" }, { label: "둥" }, M,
+              { label: "둥" }, M, { label: "둥" }, M, M, M
+            ]),
+            jing: makeCells([6, 6, 6, 6], [
+              { label: "징" }, M, M, M, M, M,
+              M, M, M, M, M, M,
+              { label: "징" }, M, M, M, M, M,
+              M, M, M, M, M, M
+            ])
+          }
+        },
+        {
+          // "쩍쩍이" refrain, confirmed cell-by-cell: kkwaenggwari/janggu/buk
+          // share one hit pattern (a single cue hit, then 4 evenly-ish spaced
+          // hits), jing strikes only once at the very start of the refrain.
+          label: "쩍쩍이 후렴",
+          repeat: 2,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: makeCells([6, 6, 6, 6], [
+              { label: "갱" }, M, M, M, M, M,
+              { label: "쩍" }, M, M, M, { label: "쩍" }, M,
+              M, M, { label: "쩍" }, M, M, M,
+              { label: "쩍" }, M, M, M, M, M
+            ]),
+            janggu: makeCells([6, 6, 6, 6], [
+              { label: "덩" }, M, M, M, M, M,
+              { label: "따" }, M, M, M, { label: "따" }, M,
+              M, M, { label: "따" }, M, M, M,
+              { label: "따" }, M, M, M, M, M
+            ]),
+            buk: makeCells([6, 6, 6, 6], [
+              { label: "둥" }, M, M, M, M, M,
+              { label: "딱" }, M, M, M, { label: "딱" }, M,
+              M, M, { label: "딱" }, M, M, M,
+              { label: "딱" }, M, M, M, M, M
+            ]),
+            jing: makeCells([6, 6, 6, 6], [
+              { label: "징" }, M, M, M, M, M,
+              M, M, M, M, M, M,
+              M, M, M, M, M, M,
+              M, M, M, M, M, M
+            ])
+          }
+        },
+        {
+          // "11개" coda: 12 cells (6x2), 11 struck for kkwaenggwari/janggu/buk
+          // (only the last cell rests), jing strikes at the start of each
+          // 6-cell half.
+          label: "마무리 (11개)",
+          repeat: 1,
+          instruments: ["kkwaenggwari", "janggu", "buk", "jing"],
+          cells: {
+            kkwaenggwari: makeCells([6, 6], [
+              { label: "갱" }, { label: "갱" }, { label: "갱" }, { label: "갱" }, { label: "갱" }, { label: "갱" },
+              { label: "갱" }, { label: "갱" }, { label: "갱" }, { label: "갱" }, { label: "갱" }, M
+            ]),
+            janggu: makeCells([6, 6], [
+              { label: "덩" }, { label: "덩" }, { label: "덩" }, { label: "덩" }, { label: "덩" }, { label: "덩" },
+              { label: "덩" }, { label: "덩" }, { label: "덩" }, { label: "덩" }, { label: "덩" }, M
+            ]),
+            buk: makeCells([6, 6], [
+              { label: "둥" }, { label: "둥" }, { label: "둥" }, { label: "둥" }, { label: "둥" }, { label: "둥" },
+              { label: "둥" }, { label: "둥" }, { label: "둥" }, { label: "둥" }, { label: "둥" }, M
+            ]),
+            jing: makeCells([6, 6], [
+              { label: "징" }, M, M, M, M, M,
+              { label: "징" }, M, M, M, M, M
+            ])
+          }
+        }
+      ]
+    },
+    kkwaenggwari_sinho: {
+      name: "꽹과리 신호가락",
+      verified: true,
+      sections: [
+        {
+          label: "신호 (꽹과리 단독 — 다른 악기는 치지 않음)",
+          repeat: 1,
+          instruments: ["kkwaenggwari"],
+          cells: {
+            kkwaenggwari: ["갱", "지", "갱", "갱", "지", "개", "개", "갱", "개", "갱", "끕"].map(function (label, i) {
+              return { id: "c" + (i + 1), label: label, strike_count: 1, measure: 1 };
+            })
+          }
+        }
+      ]
+    }
+  };
+
+  // order matches the teacher's Google Sheet exactly — this is the real
+  // performance flow, not an arbitrary catalog order.
+  var PATTERN_ORDER = [
+    "jjeokjjeogi_gut", "taryeong",
+    "chilchae_gibon", "chilchae_byeonhyeong1", "chilchae_byeonhyeong2",
+    "beoneori_chilchae_sinho", "beoneori_chilchae_sinho2",
+    "beoneori_chilchae_gagak1", "beoneori_chilchae_gagak2",
+    "chilchae_byeonhyeong3", "chilchae_byeonhyeong3_sinho",
+    "yukchae",
+    "byeoldalgeori_gibon", "byeoldalgeori_byeonhyeong", "byeoldalgeori_byeonhyeong_sinho", "byeoldalgeori_saseol",
+    "hwimori_doip", "hwimori_gibon", "hwimori_gibon_sinho",
+    "jjaksoe",
+    "kkwaenggwari_sinho"
+  ];
+
+  // the default playlist is the full performance sequence, including the
+  // teacher's repeat visits back to 칠채 기본가락 partway through.
+  var playlist = [
+    "jjeokjjeogi_gut", "taryeong",
+    "chilchae_gibon", "chilchae_byeonhyeong1", "chilchae_byeonhyeong2",
+    "beoneori_chilchae_sinho", "beoneori_chilchae_sinho2",
+    "beoneori_chilchae_gagak1", "beoneori_chilchae_gagak2",
+    "chilchae_gibon", "chilchae_byeonhyeong3", "chilchae_byeonhyeong3_sinho",
+    "yukchae",
+    "byeoldalgeori_gibon", "byeoldalgeori_byeonhyeong", "byeoldalgeori_byeonhyeong_sinho", "byeoldalgeori_saseol",
+    "hwimori_doip", "hwimori_gibon", "hwimori_gibon_sinho",
+    "jjaksoe"
+  ];
+
+  var INSTRUMENTS = [
+    { key: "kkwaenggwari", label: "꽹과리" },
+    { key: "janggu", label: "장구" },
+    { key: "buk", label: "북" },
+    { key: "jing", label: "징" }
+  ];
+
+  var grid = document.getElementById("scoreGrid");
+  var nowPlayingEl = document.getElementById("nowPlaying");
+  var totalCells = 0;
+  var cellEls = {}; // key -> [el,...]
+
+  function buildGroupSizes(cells) {
+    var sizes = [];
+    var current = null;
+    cells.forEach(function (cell) {
+      if (cell.measure !== current) {
+        sizes.push({ measure: cell.measure, count: 0 });
+        current = cell.measure;
+      }
+      sizes[sizes.length - 1].count += 1;
+    });
+    return sizes;
+  }
+
+  function buildHeaderRow(groupSizes) {
+    // one fixed-width item per beat (like the instrument rows below), so
+    // this row wraps at exactly the same points they do. Each group's
+    // first cell shows its measure number; the rest are blank spacers.
+    var row = document.createElement("div");
+    row.className = "row group-header";
+
+    var spacer = document.createElement("div");
+    spacer.className = "row-label";
+    spacer.style.background = "transparent";
+    row.appendChild(spacer);
+
+    var wrap = document.createElement("div");
+    wrap.className = "cells";
+    groupSizes.forEach(function (g, i) {
+      if (i > 0) {
+        var gap = document.createElement("div");
+        gap.className = "group-gap";
+        gap.style.height = "22px";
+        wrap.appendChild(gap);
+      }
+      for (var p = 0; p < g.count; p++) {
+        var label = document.createElement("div");
+        label.className = "group-label";
+        if (p === 0) label.textContent = g.measure + "장단";
+        wrap.appendChild(label);
+      }
+    });
+    row.appendChild(wrap);
+    return row;
+  }
+
+  function buildGueumCells(kkCells) {
+    return kkCells.map(function (c) {
+      return {
+        id: c.id,
+        label: c.mnemonic || "",
+        strike_count: c.mnemonic ? 1 : 0,
+        measure: c.measure
+      };
+    });
+  }
+
+  function buildRow(trackKey, label, cellsData, colorKey) {
+    colorKey = colorKey || trackKey;
+    var row = document.createElement("div");
+    row.className = "row";
+
+    var labelEl = document.createElement("div");
+    labelEl.className = "row-label";
+    labelEl.innerHTML = '<span class="dot" style="background:var(--accent-' + colorKey + ')"></span>' + label;
+    row.appendChild(labelEl);
+
+    var cellsWrap = document.createElement("div");
+    cellsWrap.className = "cells";
+
+    var localPos = 0;
+    var prevMeasure = null;
+    var els = [];
+
+    cellsData.forEach(function (cell) {
+      if (prevMeasure !== null && cell.measure !== prevMeasure) {
+        var gap = document.createElement("div");
+        gap.className = "group-gap";
+        cellsWrap.appendChild(gap);
+        localPos = 0;
+      }
+      localPos += 1;
+      prevMeasure = cell.measure;
+
+      var struck = cell.strike_count > 0;
+      var el = document.createElement("div");
+      el.className = "cell " + (struck ? "struck-" + colorKey : "rest");
+      el.innerHTML = '<span class="pos">' + localPos + '</span><span class="label">' + cell.label + '</span>';
+      var cellIndex = els.length;
+      el.addEventListener("click", function () { jumpToIndex(cellIndex); });
+      cellsWrap.appendChild(el);
+      els.push(el);
+    });
+
+    row.appendChild(cellsWrap);
+    grid.appendChild(row);
+    cellEls[trackKey] = els;
+  }
+
+  // ---- render one playback block (one pass through one section) ----
+
+  function renderBlock(block) {
+    grid.innerHTML = "";
+    cellEls = {};
+
+    if (!block) {
+      totalCells = 0;
+      nowPlayingEl.textContent = "재생목록이 비어 있습니다. 왼쪽에서 가락을 추가하세요.";
+      return;
+    }
+
+    var section = block.section;
+    var instruments = section.instruments;
+    var referenceCells = section.cells[instruments[0]];
+    totalCells = referenceCells.length;
+
+    grid.appendChild(buildHeaderRow(buildGroupSizes(referenceCells)));
+
+    if (section.cells.gueum) {
+      // an explicit 구음 row: its own rest pattern, independent of any
+      // instrument's — used when the mnemonic has its own breathing pauses
+      // that don't match the instrument's actual strikes.
+      buildRow("gueum", "구음", section.cells.gueum, "kkwaenggwari");
+    } else if (instruments.indexOf("kkwaenggwari") !== -1) {
+      var kkCells = section.cells.kkwaenggwari;
+      if (kkCells.some(function (c) { return c.mnemonic; })) {
+        buildRow("gueum", "구음", buildGueumCells(kkCells), "kkwaenggwari");
+      }
+    }
+
+    INSTRUMENTS.forEach(function (inst) {
+      if (instruments.indexOf(inst.key) !== -1) {
+        buildRow(inst.key, inst.label, section.cells[inst.key]);
+      }
+    });
+
+    renderVisibilityToggles(Object.keys(cellEls));
+    applyTrackVisibility();
+
+    var repeatText = block.repeatTotal > 1 ? " · " + (block.repeatIndex + 1) + "/" + block.repeatTotal + "회" : "";
+    var noteText = section.note ? " (" + section.note + ")" : "";
+    nowPlayingEl.innerHTML = "지금 재생 중: <strong>" + block.patternName + "</strong> — " + section.label + noteText + repeatText;
+  }
+
+  // ---- per-instrument show/hide (visual only; playback keeps running underneath) ----
+
+  var visibleTracks = { gueum: true, kkwaenggwari: true, janggu: true, buk: true, jing: true };
+  var TRACK_LABELS = { gueum: "구음", kkwaenggwari: "꽹과리", janggu: "장구", buk: "북", jing: "징" };
+  var trackTogglesEl = document.getElementById("trackToggles");
+
+  function renderVisibilityToggles(trackKeys) {
+    trackTogglesEl.innerHTML = "";
+    trackKeys.forEach(function (key) {
+      var label = document.createElement("label");
+      label.className = "track-toggle";
+      var checked = visibleTracks[key] !== false;
+      label.innerHTML =
+        '<input type="checkbox" data-track="' + key + '"' + (checked ? " checked" : "") + '> ' + TRACK_LABELS[key];
+      trackTogglesEl.appendChild(label);
+    });
+  }
+
+  function applyTrackVisibility() {
+    Object.keys(cellEls).forEach(function (key) {
+      var firstCell = cellEls[key][0];
+      var rowEl = firstCell && firstCell.closest(".row");
+      if (rowEl) rowEl.style.display = visibleTracks[key] === false ? "none" : "";
+    });
+  }
+
+  trackTogglesEl.addEventListener("change", function (e) {
+    var key = e.target.getAttribute("data-track");
+    if (!key) return;
+    visibleTracks[key] = e.target.checked;
+    applyTrackVisibility();
+  });
+
+  // ---- flatten the selected playlist into playback blocks (repeats expanded) ----
+
+  function buildBlocks() {
+    // pattern.repeat (if set) repeats the WHOLE pattern — every section in
+    // order — that many times as one unit. section.repeat (if set, and no
+    // pattern.repeat) repeats just that one section on its own, for cases
+    // where only a short tag/refrain repeats while the rest plays once.
+    var blocks = [];
+    playlist.forEach(function (patternId, playlistIdx) {
+      var pattern = PATTERNS[patternId];
+      var patternRepeat = pattern.repeat || 1;
+      for (var pr = 0; pr < patternRepeat; pr++) {
+        pattern.sections.forEach(function (section, sIdx) {
+          var repeat = pattern.repeat ? 1 : (section.repeat || 1);
+          for (var r = 0; r < repeat; r++) {
+            blocks.push({
+              patternId: patternId,
+              patternName: pattern.name,
+              playlistIndex: playlistIdx,
+              section: section,
+              sectionIndex: sIdx,
+              repeatIndex: pattern.repeat ? pr : r,
+              repeatTotal: pattern.repeat ? patternRepeat : repeat
+            });
+          }
+        });
+      }
+    });
+    return blocks;
+  }
+
+  // ---- library (available patterns) + playlist (selected + ordered) UI ----
+
+  var libraryListEl = document.getElementById("libraryList");
+  var playlistListEl = document.getElementById("playlistList");
+
+  function renderLibrary() {
+    libraryListEl.innerHTML = "";
+    PATTERN_ORDER.forEach(function (id) {
+      var pattern = PATTERNS[id];
+      var already = playlist.indexOf(id) !== -1;
+      var li = document.createElement("li");
+      li.className = "pattern-item";
+      li.innerHTML =
+        '<span class="name">' + pattern.name + '</span>' +
+        (pattern.verified ? "" : '<span class="badge unverified">확인 필요</span>') +
+        '<button class="icon-btn" data-add="' + id + '"' + (already ? " disabled" : "") + '>' +
+        (already ? "추가됨" : "+ 추가") + "</button>";
+      libraryListEl.appendChild(li);
+    });
+  }
+
+  function renderPlaylist() {
+    playlistListEl.innerHTML = "";
+    if (playlist.length === 0) {
+      playlistListEl.innerHTML = '<li class="playlist-empty">재생목록이 비어 있습니다.</li>';
+      return;
+    }
+    playlist.forEach(function (id, i) {
+      var pattern = PATTERNS[id];
+      var li = document.createElement("li");
+      li.className = "playlist-item";
+      li.innerHTML =
+        '<span class="order">' + (i + 1) + '</span>' +
+        '<span class="name" data-jump="' + i + '" title="클릭하면 여기서부터 재생">' + pattern.name + '</span>' +
+        '<button class="icon-btn" data-up="' + i + '"' + (i === 0 ? " disabled" : "") + '>▲</button>' +
+        '<button class="icon-btn" data-down="' + i + '"' + (i === playlist.length - 1 ? " disabled" : "") + '>▼</button>' +
+        '<button class="icon-btn" data-remove="' + i + '">✕</button>';
+      playlistListEl.appendChild(li);
+    });
+  }
+
+  var blocks = [];
+  var blockIndex = 0;
+  var currentIndex = 0;
+  var playing = false;
+  var timeoutId = null;
+  var bpm = 90;
+
+  function beatMs() { return 60000 / bpm; }
+
+  function stopPlayback() {
+    playing = false;
+    if (timeoutId) clearTimeout(timeoutId);
+    playBtn.textContent = "재생";
+    playBtn.classList.remove("is-playing");
+  }
+
+  function afterPlaylistChange() {
+    stopPlayback();
+    blocks = buildBlocks();
+    blockIndex = 0;
+    currentIndex = 0;
+    renderLibrary();
+    renderPlaylist();
+    renderBlock(blocks[0]);
+    playBtn.disabled = blocks.length === 0;
+  }
+
+  libraryListEl.addEventListener("click", function (e) {
+    var id = e.target.getAttribute("data-add");
+    if (!id) return;
+    playlist.push(id);
+    afterPlaylistChange();
+  });
+
+  playlistListEl.addEventListener("click", function (e) {
+    var t = e.target;
+    if (t.hasAttribute("data-up")) {
+      var i = parseInt(t.getAttribute("data-up"), 10);
+      var tmp = playlist[i - 1];
+      playlist[i - 1] = playlist[i];
+      playlist[i] = tmp;
+      afterPlaylistChange();
+    } else if (t.hasAttribute("data-down")) {
+      var j = parseInt(t.getAttribute("data-down"), 10);
+      var tmp2 = playlist[j + 1];
+      playlist[j + 1] = playlist[j];
+      playlist[j] = tmp2;
+      afterPlaylistChange();
+    } else if (t.hasAttribute("data-remove")) {
+      var k = parseInt(t.getAttribute("data-remove"), 10);
+      playlist.splice(k, 1);
+      afterPlaylistChange();
+    } else if (t.hasAttribute("data-jump")) {
+      jumpToPlaylistIndex(parseInt(t.getAttribute("data-jump"), 10));
+    }
+  });
+
+  function highlight(index) {
+    Object.keys(cellEls).forEach(function (key) {
+      cellEls[key].forEach(function (el, i) {
+        el.classList.toggle("is-active", i === index);
+      });
+    });
+  }
+
+  // ---- speak struck syllables aloud (test-only, before real audio exists) ----
+  // starting with just janggu + gueum per the teacher's request, to check
+  // the timing sounds right before turning it on for every instrument.
+  var SPEAK_TRACKS = ["janggu", "gueum"];
+
+  var koreanVoice = null;
+  function pickKoreanVoice() {
+    if (!window.speechSynthesis) return;
+    var voices = window.speechSynthesis.getVoices();
+    var koVoices = voices.filter(function (v) { return v.lang && v.lang.toLowerCase().indexOf("ko") === 0; });
+    // prefer a network/"Google" voice — these are neural TTS and sound far
+    // less robotic than the built-in OS voice most browsers default to.
+    koreanVoice =
+      koVoices.find(function (v) { return /google/i.test(v.name) && !/compact|엘리|efficient/i.test(v.name); }) ||
+      koVoices.find(function (v) { return !v.localService; }) ||
+      koVoices[0] || null;
+  }
+  if (window.speechSynthesis) {
+    pickKoreanVoice();
+    window.speechSynthesis.onvoiceschanged = pickKoreanVoice;
+  }
+
+  function countHoldBeats(trackKey, index) {
+    // how many beats this syllable should be held for: itself plus every
+    // consecutive rest that follows before the next actual strike.
+    var els = cellEls[trackKey];
+    var count = 1;
+    if (!els) return count;
+    for (var i = index + 1; i < els.length; i++) {
+      if (!els[i].classList.contains("rest")) break;
+      count++;
+    }
+    return count;
+  }
+
+  var SYLLABLE_BASELINE_MS = 380; // rough spoken length of one Korean syllable at rate 1
+
+  function speakCell(trackKey, index) {
+    // returns true if this cell is struck (and speech was fired for it),
+    // false if it's a rest — 쉼 means "let the previous hit's sound keep
+    // ringing," not "silence," so a rest must never cut off what's already
+    // playing. The caller only cancels/restarts speech when this is true.
+    if (!window.speechSynthesis) return false;
+    var els = cellEls[trackKey];
+    if (!els || !els[index]) return false;
+    var el = els[index];
+    if (el.classList.contains("rest")) return false;
+    var labelEl = el.querySelector(".label");
+    var text = labelEl ? labelEl.textContent.trim() : "";
+    if (!text) return false;
+    var utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "ko-KR";
+    if (koreanVoice) utter.voice = koreanVoice;
+    // "덩쉼쉼" should sound like a held "더어엉", not "덩" then dead air —
+    // stretch the syllable to roughly fill this hit plus every rest that
+    // follows it, instead of just tracking bpm on its own.
+    var holdBeats = countHoldBeats(trackKey, index);
+    var holdMs = holdBeats * beatMs();
+    utter.rate = Math.max(0.35, Math.min(4, SYLLABLE_BASELINE_MS / holdMs));
+    utter.pitch = 1;
+    window.speechSynthesis.speak(utter);
+    return true;
+  }
+
+  // Chrome's speechSynthesis silently stops producing audio after roughly
+  // 15s of continuous use unless nudged — pause/resume on an interval
+  // works around it so long playthroughs don't just go quiet partway.
+  if (window.speechSynthesis) {
+    setInterval(function () {
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.pause();
+        window.speechSynthesis.resume();
+      }
+    }, 4000);
+  }
+
+  function speakCurrentIndex(index) {
+    if (!window.speechSynthesis) return;
+    var anyStruck = SPEAK_TRACKS.some(function (key) {
+      var els = cellEls[key];
+      return els && els[index] && !els[index].classList.contains("rest");
+    });
+    if (!anyStruck) return; // 쉼: leave whatever's already sounding alone
+    window.speechSynthesis.cancel(); // a new hit — cut the previous ring and speak this one
+    // (a short delay after cancel() avoids a Chrome quirk where speaking
+    // again in the very same tick can get silently dropped)
+    setTimeout(function () {
+      SPEAK_TRACKS.forEach(function (key) { speakCell(key, index); });
+    }, 0);
+  }
+
+  function jumpToIndex(index) {
+    if (index < 0 || index >= totalCells) return;
+    currentIndex = index;
+    highlight(currentIndex);
+  }
+
+  function jumpToPlaylistIndex(playlistIdx) {
+    var target = -1;
+    for (var i = 0; i < blocks.length; i++) {
+      if (blocks[i].playlistIndex === playlistIdx) { target = i; break; }
+    }
+    if (target === -1) return;
+    blockIndex = target;
+    currentIndex = 0;
+    renderBlock(blocks[blockIndex]);
+  }
+
+  function tick() {
+    if (!blocks.length) { stopPlayback(); return; }
+    highlight(currentIndex);
+    speakCurrentIndex(currentIndex);
+    currentIndex++;
+    if (currentIndex >= totalCells) {
+      blockIndex++;
+      if (blockIndex >= blocks.length) blockIndex = 0; // loop back to the start of the playlist
+      renderBlock(blocks[blockIndex]);
+      currentIndex = 0;
+    }
+    if (playing) timeoutId = setTimeout(tick, beatMs());
+  }
+
+  var playBtn = document.getElementById("playBtn");
+  playBtn.addEventListener("click", function () {
+    if (!blocks.length) return;
+    playing = !playing;
+    playBtn.textContent = playing ? "정지" : "재생";
+    playBtn.classList.toggle("is-playing", playing);
+    if (playing) {
+      tick();
+    } else if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+  });
+
+  var bpmInput = document.getElementById("bpm");
+  var bpmOut = document.getElementById("bpmOut");
+  function setBpm(newBpm) {
+    var min = parseInt(bpmInput.min, 10);
+    var max = parseInt(bpmInput.max, 10);
+    bpm = Math.max(min, Math.min(max, newBpm));
+    bpmInput.value = bpm;
+    bpmOut.textContent = bpm + " BPM";
+  }
+
+  bpmInput.addEventListener("input", function () {
+    setBpm(parseInt(bpmInput.value, 10));
+  });
+
+  document.getElementById("bpmDown").addEventListener("click", function () { setBpm(bpm - 10); });
+  document.getElementById("bpmUp").addEventListener("click", function () { setBpm(bpm + 10); });
+
+  afterPlaylistChange();
+})();
+</script>
