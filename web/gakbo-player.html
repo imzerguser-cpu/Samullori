@@ -737,7 +737,13 @@
   var bpm = 90;
   var patternTempos = {};
   function tempoFor(patternId) {
-    return patternTempos[patternId] || PATTERNS[patternId].defaultBpm || bpm;
+    if (patternTempos[patternId]) return patternTempos[patternId];
+    // Resolve the established score-order tempo, never the last viewed/accelerated BPM.
+    for (var i = PATTERN_ORDER.indexOf(patternId); i >= 0; i--) {
+      var configured = PATTERNS[PATTERN_ORDER[i]].defaultBpm;
+      if (configured) return configured;
+    }
+    return 90;
   }
 
   var sequenceTempos = {};
