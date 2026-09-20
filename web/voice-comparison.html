@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>쩍쩍이굿 구음 비교</title>
+<style>body{max-width:850px;margin:32px auto;padding:0 20px;background:#f6f3ed;color:#2a2622;font-family:system-ui,sans-serif;line-height:1.7}h1{font-size:26px}h2{font-size:20px}section{background:#fffdf9;border:1px solid #cec4b5;border-radius:12px;padding:20px;margin:18px 0}audio{width:100%}a{color:#214d85}.samples{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:600px){.samples{grid-template-columns:1fr}}</style></head>
+<body><h1>쩍쩍이굿 장구 구음 비교 · 1차</h1>
+<p>두 파일 모두 <strong>150 BPM</strong>, 같은 남자 목소리입니다. 1·2줄을 두 번 친 뒤 3줄로 마무리합니다. 첫 소리 전에는 약 0.55초의 준비 시간이 있습니다.</p>
+<section><h2>A · 현재 음원</h2><p>기존에 사용하던 발화 속도 −10%의 ‘덩·따’입니다.</p><audio controls preload="metadata" src="audio/comparison-jjeok/original-150bpm.mp3"></audio><a href="audio/comparison-jjeok/original-150bpm.mp3" download>A 파일 저장</a></section>
+<section><h2>B · 새 음원: 기본 발화 속도</h2><p>같은 목소리로 ‘덩·따’를 기본 발화 속도에서 새로 생성했습니다. 음높이를 바꾸거나 음절 끝을 잘라내지 않았습니다.</p><audio controls preload="metadata" src="audio/comparison-jjeok/normal-150bpm.mp3"></audio><a href="audio/comparison-jjeok/normal-150bpm.mp3" download>B 파일 저장</a></section>
+<section><h2>B의 한 글자만 들어보기</h2><div class="samples"><div>덩<audio controls preload="metadata" src="audio/comparison-jjeok/deong-normal.mp3"></audio></div><div>따<audio controls preload="metadata" src="audio/comparison-jjeok/tta-normal.mp3"></audio></div></div></section>
+<p>발음의 자연스러움, ‘덩’의 첫 자음과 받침, 연속 타격에서 음절이 겹쳐 들리는지를 비교해 주세요. 박자 간격은 같아도 발음 자체의 길이는 다를 수 있습니다. 이번 비교본은 실제 가락보 음원을 교체하지 않습니다.</p>
+<p><a href="gakbo-player.html?v=4d030a6">가락보로 돌아가기</a></p>
+<script>document.querySelectorAll('audio').forEach(function(a){a.addEventListener('play',function(){document.querySelectorAll('audio').forEach(function(b){if(a!==b)b.pause();});});});</script>
+</body></html>
