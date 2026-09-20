@@ -221,7 +221,18 @@
 
   .score-scroll {
     margin-top: 26px;
-    padding-bottom: 8px;
+    padding: 10px 4px 8px;
+    /* fixed viewing window: height stays the same no matter which
+       jangdan is showing, so the score doesn't jump around the page
+       when you switch patterns — tall ones scroll inside this box
+       instead of pushing the rest of the page down. */
+    height: 66vh;
+    min-height: 420px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    box-shadow: var(--shadow);
   }
   .score-grid { display: flex; flex-direction: column; gap: 10px; width: 100%; }
 
@@ -328,18 +339,18 @@
     .cell.is-active { transform: none; }
   }
 
-  .score-system { margin: 0 0 24px; min-width: 0; }
+  .score-system { margin: 0 0 14px; min-width: 0; }
   .score-grid.yukchae-layout { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 24px; }
   .yukchae-layout .score-system:last-child { grid-column:1 / -1; }
-  .system-caption { margin: 4px 0 8px; color: var(--ink-muted); font-size: 13px; }
-  .system-scroll { overflow-x: auto; padding-bottom: 5px; }
+  .system-caption { margin: 4px 0 6px; color: var(--ink-muted); font-size: 13px; }
+  .system-scroll { overflow-x: auto; padding-bottom: 4px; }
   .score-system .row { display:flex; width:max-content; min-width:100%; gap:0; margin:0; }
-  .score-system .row-label { flex:0 0 78px; width:78px; box-sizing:border-box; position:sticky; left:0; z-index:1; background:var(--bg-card); }
+  .score-system .row-label { flex:0 0 62px; width:62px; font-size:16px; box-sizing:border-box; position:sticky; left:0; z-index:1; background:var(--bg-card); }
   .score-system .cells { flex-wrap:nowrap; gap:0; }
   .score-system .cell, .score-system .group-label { flex:0 0 42px; width:42px; box-sizing:border-box; border-radius:0; margin:0; border:1px solid var(--line); }
-  .score-system .cell { height:54px; }
-  .score-system .cell .label { font-size:19px; }
-  .score-system .group-label { height:28px; text-align:center; }
+  .score-system .cell { height:44px; }
+  .score-system .cell .label { font-size:16px; }
+  .score-system .group-label { height:20px; text-align:center; }
   .score-system .measure-start { border-left:3px solid var(--ink); }
   .score-system .measure-end { border-right:3px solid var(--ink); }
   .score-system .signal-row .label, .score-system .signal-row .row-label { color:#c52a22; }
