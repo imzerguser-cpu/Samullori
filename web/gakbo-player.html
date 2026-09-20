@@ -211,7 +211,9 @@
     font-size: 13px;
     padding: 6px 2px;
   }
-  .now-playing { margin: 20px 2px 0; font-size: 22px; line-height: 1.5; font-weight: 700; color: #2a2622; }
+  .now-playing { margin: 0; font-size: 22px; line-height: 1.5; font-weight: 700; color: #2a2622; }
+  .now-playing-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 20px; }
+  .now-playing-row .controls { margin-top: 0; flex: none; }
   .now-playing strong { color: var(--ink); font-weight: 700; }
   button.transport:disabled { opacity: 0.4; cursor: default; }
 
@@ -395,21 +397,6 @@
   </header>
 
   <div class="controls-row">
-  <div class="controls">
-    <button class="transport" id="playBtn" type="button">재생</button>
-    <div class="tempo">
-      <label for="bpm">속도</label>
-      <button class="icon-btn" id="bpmDown" type="button">−10</button>
-      <input type="range" id="bpm" min="40" max="800" value="90" step="5">
-      <button class="icon-btn" id="bpmUp" type="button">+10</button>
-      <output id="bpmOut" for="bpm">90 BPM</output>
-    </div>
-    <div class="legend">
-      <span><span class="swatch"></span>친다</span>
-      <span><span class="swatch rest"></span>쉼</span>
-    </div>
-  </div>
-
   <div class="controls track-controls">
     <span class="track-controls-label">표시·재생할 악기:</span>
     <div id="trackToggles"></div>
@@ -425,7 +412,24 @@
     <p id="audioStatus" role="status" style="width:100%;margin:0;font-size:13px">구음 목소리 · 한 칸 = 1박 · 음높이를 바꾸지 않고 재생합니다.</p>
   </div>
   </div>
-  <p class="now-playing" id="nowPlaying"></p>
+
+  <div class="now-playing-row">
+    <p class="now-playing" id="nowPlaying"></p>
+    <div class="controls">
+      <button class="transport" id="playBtn" type="button">재생</button>
+      <div class="tempo">
+        <label for="bpm">속도</label>
+        <button class="icon-btn" id="bpmDown" type="button">−10</button>
+        <input type="range" id="bpm" min="40" max="800" value="90" step="5">
+        <button class="icon-btn" id="bpmUp" type="button">+10</button>
+        <output id="bpmOut" for="bpm">90 BPM</output>
+      </div>
+      <div class="legend">
+        <span><span class="swatch"></span>친다</span>
+        <span><span class="swatch rest"></span>쉼</span>
+      </div>
+    </div>
+  </div>
 
   <div class="score-scroll">
     <div class="score-grid" id="scoreGrid"></div>
