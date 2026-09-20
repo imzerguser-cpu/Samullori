@@ -883,7 +883,7 @@
         try {
         var bytes = Uint8Array.from(atob(soundBanks.voice[token]), function(c) { return c.charCodeAt(0); });
         buffers[token] = await ctx.decodeAudioData(bytes.buffer);
-        voiceLead[token] = voiceOnset(buffers[token]);
+        voiceLead[token] = voiceProfile[token] && typeof voiceProfile[token].onset === 'number' ? voiceProfile[token].onset : voiceOnset(buffers[token]);
         audioLookahead = Math.max(audioLookahead, voiceLead[token] + 0.15);
         } catch (error) { delete buffers[token]; console.warn("Voice sample unavailable:", token); }
       })).then(function() {
@@ -899,6 +899,8 @@
     return readyPromise;
   }
   // Detect the first audible attack without trimming or modifying any recording.
+  var voiceProfile = {"같": {"gain": 1.3287}, "개": {"gain": 1.32633}, "갠": {"gain": 1.36147}, "갠지": {"gain": 0.9389}, "갱": {"gain": 1.30202}, "게": {"gain": 1.08568, "onset": 0.417}, "겠": {"gain": 1.23285}, "고": {"gain": 1.78878}, "구": {"gain": 1.54839}, "궁": {"gain": 0.96362}, "그": {"gain": 1.06338}, "급": {"gain": 0.95856}, "기": {"gain": 1.38116}, "기따": {"gain": 1.11318}, "끕": {"gain": 0.92239}, "낮": {"gain": 1.21877}, "내": {"gain": 1.14249, "onset": 0.453}, "냐": {"gain": 1.42654}, "네": {"gain": 1.09201, "onset": 0.423}, "년": {"gain": 1.21527}, "농": {"gain": 1.20941}, "늘": {"gain": 1.07204}, "다": {"gain": 1.43678}, "달": {"gain": 1.42643}, "대": {"gain": 1.18372}, "더": {"gain": 1.16056, "onset": 0.438}, "덩": {"gain": 1.24179}, "도": {"gain": 0.73205}, "두": {"gain": 1.35978}, "둠": {"gain": 1.16165}, "둥": {"gain": 1.10898}, "들": {"gain": 0.98333}, "듭": {"gain": 1.1931}, "따": {"gain": 1.07059}, "딱": {"gain": 1.11557}, "딹": {"gain": 1.11557}, "땅": {"gain": 1.36496}, "떡": {"gain": 0.84835}, "라": {"gain": 1.466}, "랑": {"gain": 1.26972}, "로": {"gain": 1.38206}, "루": {"gain": 1.59614}, "르": {"gain": 1.35651}, "를": {"gain": 0.92247}, "리": {"gain": 1.29577}, "마": {"gain": 1.0617}, "말": {"gain": 1.17454}, "맛": {"gain": 1.11498}, "먹": {"gain": 0.97856}, "면": {"gain": 1.2029}, "미": {"gain": 1.44659}, "바": {"gain": 1.36541}, "밝": {"gain": 1.42986}, "별": {"gain": 0.9473}, "보": {"gain": 1.00958}, "볶": {"gain": 0.80985}, "분": {"gain": 1.00794}, "불": {"gain": 0.81499}, "비": {"gain": 1.27804}, "빛": {"gain": 1.14703}, "빠": {"gain": 0.98136}, "뽕": {"gain": 1.00292}, "사": {"gain": 1.46798}, "세": {"gain": 0.84737}, "속": {"gain": 1.0728}, "스": {"gain": 1.11757}, "식": {"gain": 1.12599}, "쌀": {"gain": 1.07903}, "쑤": {"gain": 1.58192}, "아": {"gain": 2.23717}, "야": {"gain": 2.96493}, "양": {"gain": 1.44313}, "얘": {"gain": 4}, "어": {"gain": 3.77923, "onset": 0.336}, "얼": {"gain": 1.03498}, "엄": {"gain": 1.28666}, "었": {"gain": 1.37886}, "에": {"gain": 3.93201}, "올": {"gain": 1.45626}, "요": {"gain": 4}, "우": {"gain": 2.2041}, "은": {"gain": 1.56694}, "을": {"gain": 1.37377}, "읏": {"gain": 1.36937}, "응": {"gain": 1.17813}, "이": {"gain": 4}, "일": {"gain": 1.55511}, "있": {"gain": 1.67132}, "장": {"gain": 1.40048}, "절": {"gain": 1.24153}, "정": {"gain": 1.14118}, "좋": {"gain": 0.89216}, "주": {"gain": 1.37562}, "지": {"gain": 1.00943}, "집": {"gain": 1.11295}, "짓": {"gain": 1.04587}, "징": {"gain": 1.04688}, "짜": {"gain": 1.21867}, "짬": {"gain": 1.06014}, "쩍": {"gain": 1.0096}, "쩝": {"gain": 0.95036}, "찹": {"gain": 1.17729}, "춰": {"gain": 1.57579}, "친": {"gain": 1.07669}, "침": {"gain": 1.03568}, "콩": {"gain": 1.13671}, "쿵": {"gain": 1.18531}, "탕": {"gain": 1.38146}, "트": {"gain": 1.32206}, "티": {"gain": 1.45292}, "파": {"gain": 0.91419, "onset": 0.48}, "풍": {"gain": 1.21708}, "하": {"gain": 0.96703}, "해": {"gain": 0.82476}};
+  var lastVoiceEnd = 0;
   var unavailableVoices = [];
   var voiceLead = {}, audioLookahead = 0.15, precedingVoices = {};
   function voiceOnset(buffer) {
@@ -926,15 +928,8 @@
   function playToken(token, track, time, slot, volume, limitOverlap, onsetOverride) {
     var buffer = buffers[token];
     if (!buffer || soundMode !== 'voice') return;
+    volume = (volume == null ? 1 : volume) * (voiceProfile[token] ? voiceProfile[token].gain : 1);
     var beatTime = time;
-    var previous = precedingVoices[track];
-    if (limitOverlap && previous && previous.end > beatTime) {
-      // End the previous syllable at the next attack, never trim the new consonant.
-      previous.envelope.gain.cancelScheduledValues(Math.max(previous.beat, beatTime - 0.008));
-      previous.envelope.gain.setValueAtTime(previous.volume, Math.max(previous.beat, beatTime - 0.008));
-      previous.envelope.gain.linearRampToValueAtTime(0, beatTime);
-      try { previous.source.stop(beatTime); } catch (_) {}
-    }
     // Start the full file early so its consonant attack lands exactly on the beat.
     time = Math.max(ctx.currentTime, time - (typeof onsetOverride === 'number' ? onsetOverride : (voiceLead[token] || 0)));
     var source = ctx.createBufferSource(), envelope = ctx.createGain();
@@ -950,6 +945,7 @@
     activeSources.add(source);
     source.onended = function() { activeSources.delete(source); source.disconnect(); envelope.disconnect(); };
     source.start(time); source.stop(time + duration);
+    lastVoiceEnd = Math.max(lastVoiceEnd, time + duration);
     precedingVoices[track] = {source:source,envelope:envelope,beat:beatTime,end:time+duration,volume:volume || 1};
   }
   function scheduleCell(blockIdx, index, time, seconds) {
@@ -980,7 +976,7 @@
       currentIndex = latest.cell;
       highlight(currentIndex);
     }
-    if (playbackEndTime !== null && audibleTime >= playbackEndTime) {
+    if (playbackEndTime !== null && audibleTime >= Math.max(playbackEndTime, lastVoiceEnd)) {
       stopPlayback(); playbackFinished = true; audioStatus.textContent = '전체 가락 재생이 끝났습니다.'; return;
     }
     frameId = requestAnimationFrame(drawAudioPosition);
@@ -1008,7 +1004,7 @@
     activeSources.clear(); visualQueue = []; precedingVoices = {};
   }
   function runFromPosition() {
-    clearAudio(); playbackEndTime = null; playbackFinished = false; nextBlock = blockIndex; nextCell = currentIndex;
+    clearAudio(); lastVoiceEnd = 0; playbackEndTime = null; playbackFinished = false; nextBlock = blockIndex; nextCell = currentIndex;
     nextTime = ctx.currentTime + audioLookahead;
     scheduleAudio(); drawAudioPosition();
   }
