@@ -214,6 +214,22 @@
   .now-playing { margin: 0; font-size: 22px; line-height: 1.5; font-weight: 700; color: #2a2622; }
   .now-playing-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 20px; }
   .now-playing-row .controls { margin-top: 0; flex: none; }
+
+  /* fullscreen: the browser only fills the whole monitor, it doesn't
+     enlarge anything on its own — bump up the score so it reads from
+     across a classroom. */
+  .stage:fullscreen, .stage:-webkit-full-screen {
+    background: var(--bg);
+    padding: 28px 32px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .stage:fullscreen .now-playing, .stage:-webkit-full-screen .now-playing { font-size: 30px; }
+  .stage:fullscreen .score-scroll, .stage:-webkit-full-screen .score-scroll { flex: 1; min-height: 0; }
+  .stage:fullscreen .score-system .row-label, .stage:-webkit-full-screen .score-system .row-label { font-size: 20px; width: 78px; flex-basis: 78px; }
+  .stage:fullscreen .score-system .cell, .stage:-webkit-full-screen .score-system .cell { width: 54px; height: 58px; }
+  .stage:fullscreen .score-system .cell .label, .stage:-webkit-full-screen .score-system .cell .label { font-size: 21px; }
   .now-playing strong { color: var(--ink); font-weight: 700; }
   button.transport:disabled { opacity: 0.4; cursor: default; }
 
@@ -413,6 +429,7 @@
   </div>
   </div>
 
+  <div class="stage" id="stage">
   <div class="now-playing-row">
     <p class="now-playing" id="nowPlaying"></p>
     <div class="controls">
@@ -428,11 +445,13 @@
         <span><span class="swatch"></span>친다</span>
         <span><span class="swatch rest"></span>쉼</span>
       </div>
+      <button class="transport" id="fullscreenBtn" type="button" title="전체화면으로 크게 보기 (Ctrl+Enter)">전체화면</button>
     </div>
   </div>
 
   <div class="score-scroll">
     <div class="score-grid" id="scoreGrid"></div>
+  </div>
   </div>
 
   <div class="picker">
@@ -1147,15 +1166,41 @@
   document.getElementById("bpmDown").addEventListener("click", function () { setBpm(bpm - 10); });
   document.getElementById("bpmUp").addEventListener("click", function () { setBpm(bpm + 10); });
 
-  // 키보드 단축키: +/- 로 속도 10씩 조절, 스페이스로 재생/정지 전환.
-  // 버튼이나 입력창에 포커스가 있을 때는 그 요소의 기본 동작(예: 포커스된
-  // 버튼에서 스페이스로 클릭)을 그대로 두고 가로채지 않는다.
+  // 전체화면: 무대(현재 줄+다음 줄 미리보기) 영역만 채워서 교실에서 멀리서도
+  // 잘 보이도록 확대. ESC로 나가는 건 브라우저 전체화면 API 기본 동작이라
+  // 따로 처리할 필요 없음.
+  var stageEl = document.getElementById("stage");
+  var fullscreenBtn = document.getElementById("fullscreenBtn");
+  function enterFullscreen() {
+    if (document.fullscreenElement) return;
+    var request = stageEl.requestFullscreen || stageEl.webkitRequestFullscreen;
+    if (request) request.call(stageEl);
+  }
+  fullscreenBtn.addEventListener("click", function () {
+    if (document.fullscreenElement) {
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    } else {
+      enterFullscreen();
+    }
+  });
+  document.addEventListener("fullscreenchange", function () {
+    fullscreenBtn.textContent = document.fullscreenElement ? "전체화면 종료" : "전체화면";
+  });
+  document.addEventListener("webkitfullscreenchange", function () {
+    fullscreenBtn.textContent = document.webkitFullscreenElement ? "전체화면 종료" : "전체화면";
+  });
+
+  // 키보드 단축키: +/- 로 속도 10씩 조절, 스페이스로 재생/정지 전환,
+  // Ctrl+Enter로 전체화면 진입. 버튼이나 입력창에 포커스가 있을 때는 그
+  // 요소의 기본 동작(예: 포커스된 버튼에서 스페이스로 클릭)을 그대로 두고
+  // 가로채지 않는다.
   document.addEventListener("keydown", function (e) {
     var active = document.activeElement;
     var isControl = active && (active.tagName === "BUTTON" || active.tagName === "INPUT");
     if (e.key === "+" || e.key === "=") { e.preventDefault(); setBpm(bpm + 10); }
     else if (e.key === "-") { e.preventDefault(); setBpm(bpm - 10); }
     else if ((e.key === " " || e.code === "Space") && !isControl) { e.preventDefault(); playBtn.click(); }
+    else if (e.ctrlKey && e.key === "Enter") { e.preventDefault(); enterFullscreen(); }
   });
 
   afterPlaylistChange();
