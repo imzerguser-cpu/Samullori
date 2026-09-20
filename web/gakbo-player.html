@@ -651,7 +651,7 @@
 
   // ---- per-instrument show/hide (visual only; playback keeps running underneath) ----
 
-  var visibleTracks = { gueum: false, kkwaenggwari: true, janggu: true, buk: true, jing: true, sangsoe: false, busoe: false };
+  var visibleTracks = { gueum: true, kkwaenggwari: true, janggu: true, buk: true, jing: true, sangsoe: false, busoe: false };
   var TRACK_LABELS = { gueum: "구음", kkwaenggwari: "꽹과리", janggu: "장구", buk: "북", jing: "징", sangsoe: "상쇠", busoe: "부쇠" };
   var trackTogglesEl = document.getElementById("trackToggles");
 
@@ -662,7 +662,7 @@
       label.className = "track-toggle";
       var checked = visibleTracks[key] !== false;
       label.innerHTML =
-        '<input type="checkbox" data-track="' + key + '"' + (checked ? " checked" : "") + '> ' + TRACK_LABELS[key];
+        '<input type="checkbox" data-track="' + key + '"' + (checked ? " checked" : "") + '> ' + (key === 'gueum' ? '구음 (표시만)' : TRACK_LABELS[key]);
       trackTogglesEl.appendChild(label);
     });
   }
@@ -679,6 +679,7 @@
     var key = e.target.getAttribute("data-track");
     if (!key) return;
     visibleTracks[key] = e.target.checked;
+    if (key === "gueum") { applyTrackVisibility(); return; }
     enabledTracks[key] = e.target.checked;
     if (gains[key]) gains[key].gain.setValueAtTime(e.target.checked ? 0.35 : 0, ctx.currentTime);
     applyTrackVisibility();
@@ -889,7 +890,7 @@
       })).then(function() {
         var missing = new Set();
         Object.values(PATTERNS).forEach(function(p) { p.sections.forEach(function(s) {
-          Object.values(tracksFor(s)).forEach(function(cells) { cells.forEach(function(c) {
+          Object.entries(tracksFor(s)).forEach(function(entry) { if (entry[0] === "gueum") return; entry[1].forEach(function(c) {
             if (c.strike_count) voiceTokens(c.voiceLabel || c.label).forEach(function(t) { if (!buffers[t]) missing.add(t); });
           }); });
         }); });
@@ -957,6 +958,7 @@
       if (block.repeatIndex !== block.repeatTotal-1) delete tracks[signal];
     }
     Object.keys(tracks).forEach(function(track) {
+      if (track === "gueum") return; // Mnemonics are visual-only.
       var c = tracks[track][index];
       var outputTrack = block.section.lastPassSignal === track ? 'kkwaenggwari' : track;
       if (block.section.lastPassSignal && track === 'kkwaenggwari' && block.repeatIndex === block.repeatTotal-1) return;
