@@ -409,6 +409,7 @@
   <div class="controls track-controls">
     <span>소리 종류:</span>
     <div role="group" aria-label="소리 종류" style="display:flex;gap:8px">
+      <button type="button" id="silentModeBtn" class="transport" aria-pressed="false">소리 없이 박자만</button>
       <button type="button" id="voiceModeBtn" class="transport" aria-pressed="true">구음</button>
       <button type="button" id="instrumentModeBtn" class="transport" aria-pressed="false" disabled title="실제 악기 음원을 연결한 뒤 사용할 수 있습니다">악기 소리 (준비 중)</button>
     </div>
@@ -644,7 +645,7 @@
     });
     var target=candidates.find(function(x){return x.block.repeatIndex===displayedBlock.repeatIndex;}) || candidates[0];
     if (!target) return;
-    blockIndex=target.index; currentIndex=index; renderBlock(target.block); highlight(index);
+    playbackFinished = false; blockIndex=target.index; currentIndex=index; renderBlock(target.block); highlight(index);
     if (playing) runFromPosition();
   }
 
@@ -795,6 +796,7 @@
   function afterPlaylistChange() {
     stopPlayback();
     sequenceTempos = {};
+    playbackFinished = false; playbackEndTime = null;
     blocks = buildBlocks();
     blockIndex = 0;
     currentIndex = 0;
@@ -846,6 +848,7 @@
   var enabledTracks = { janggu: true, kkwaenggwari: true, buk: true, jing: true, gueum: false, sangsoe: false, busoe: false };
   var ctx, buffers = {}, gains = {}, master, readyPromise;
   var activeSources = new Set(), visualQueue = [], schedulerId, frameId;
+  var playbackEndTime = null, playbackFinished = false;
   var nextTime = 0, nextBlock = 0, nextCell = 0, generation = 0;
   var loading = false;
   var audioStatus = document.getElementById('audioStatus');
@@ -874,6 +877,7 @@
       });
     }
     await ctx.resume();
+    if (soundMode === "silent") return;
     if (!readyPromise) {
       readyPromise = Promise.all(Object.keys(soundBanks.voice).map(async function(token) {
         try {
@@ -976,23 +980,27 @@
       currentIndex = latest.cell;
       highlight(currentIndex);
     }
+    if (playbackEndTime !== null && audibleTime >= playbackEndTime) {
+      stopPlayback(); playbackFinished = true; audioStatus.textContent = '전체 가락 재생이 끝났습니다.'; return;
+    }
     frameId = requestAnimationFrame(drawAudioPosition);
   }
   function scheduleAudio() {
     if (!playing) return;
     // Long suspension: resume from the next musical cell, never burst overdue notes.
     if (nextTime < ctx.currentTime + audioLookahead - 0.12) nextTime = ctx.currentTime + audioLookahead;
-    while (nextTime < ctx.currentTime + audioLookahead) {
+    while (nextBlock < blocks.length && nextTime < ctx.currentTime + audioLookahead) {
       var seconds = 60 / blockTempo(blocks[nextBlock]);
       scheduleCell(nextBlock, nextCell, nextTime, seconds);
       nextTime += seconds;
       nextCell++;
       var section = blocks[nextBlock].section;
       if (nextCell >= section.cells[section.instruments[0]].length) {
-        nextCell = 0; nextBlock = (nextBlock + 1) % blocks.length;
+        nextCell = 0; nextBlock++;
+        if (nextBlock === blocks.length) { playbackEndTime = nextTime; break; }
       }
     }
-    schedulerId = setTimeout(scheduleAudio, 25);
+    if (nextBlock < blocks.length) schedulerId = setTimeout(scheduleAudio, 25);
   }
   function clearAudio() {
     clearTimeout(schedulerId); cancelAnimationFrame(frameId);
@@ -1000,7 +1008,7 @@
     activeSources.clear(); visualQueue = []; precedingVoices = {};
   }
   function runFromPosition() {
-    clearAudio(); nextBlock = blockIndex; nextCell = currentIndex;
+    clearAudio(); playbackEndTime = null; playbackFinished = false; nextBlock = blockIndex; nextCell = currentIndex;
     nextTime = ctx.currentTime + audioLookahead;
     scheduleAudio(); drawAudioPosition();
   }
@@ -1018,13 +1026,14 @@
     if (target < 0) {
       stopPlayback(); renderBlock({patternId:playlist[index],playlistIndex:index}); return;
     }
-    blockIndex = target; currentIndex = 0; renderBlock(blocks[target]);
+    playbackFinished = false; blockIndex = target; currentIndex = 0; renderBlock(blocks[target]);
     if (playing) runFromPosition();
   }
   var playBtn = document.getElementById('playBtn');
   playBtn.addEventListener('click', async function() {
     if (playing || loading) { stopPlayback(); return; }
     if (!blocks.length) return;
+    if (playbackFinished) { blockIndex = 0; currentIndex = 0; renderBlock(blocks[0]); playbackFinished = false; }
     var request = ++generation;
     loading = true; playBtn.textContent = '준비 취소';
     audioStatus.textContent = '구음 음원을 준비하고 있습니다…';
@@ -1040,6 +1049,7 @@
     }
   });
   function updateAudioStatus() {
+    if (soundMode === 'silent') { audioStatus.textContent='소리 없이 선택한 악기의 박자만 표시합니다.'; return; }
     if (unavailableVoices.length) {
       audioStatus.textContent = "일부 음원 누락: " + unavailableVoices.join(", ") + " · 해당 소리만 건너뛰고 재생합니다.";
       return;
@@ -1052,10 +1062,12 @@
     // Never substitute voice recordings for missing instrument recordings.
     if (mode === 'instrument' && !Object.keys(soundBanks.instrument).length) return;
     stopPlayback(); soundMode = mode;
+    document.getElementById('silentModeBtn').setAttribute('aria-pressed', String(mode === 'silent'));
     document.getElementById('voiceModeBtn').setAttribute('aria-pressed', String(mode === 'voice'));
     document.getElementById('instrumentModeBtn').setAttribute('aria-pressed', String(mode === 'instrument'));
     updateAudioStatus();
   }
+  document.getElementById('silentModeBtn').addEventListener('click', function() { if (soundMode !== 'silent') selectSoundMode('silent'); });
   document.getElementById('voiceModeBtn').addEventListener('click', function() { if (soundMode !== 'voice') selectSoundMode('voice'); });
   document.getElementById('instrumentModeBtn').addEventListener('click', function() { selectSoundMode('instrument'); });
 
