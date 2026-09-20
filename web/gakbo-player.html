@@ -585,7 +585,7 @@
   function renderBlock(block) {
     var previousBlock = displayedBlock;
     grid.replaceChildren(); cellEls = {}; displayedBlock = block;
-    if (block && (!previousBlock || previousBlock.playlistIndex !== block.playlistIndex || previousBlock.patternId !== block.patternId))
+    if (block && !manualBpmOverride && (!previousBlock || previousBlock.playlistIndex !== block.playlistIndex || previousBlock.patternId !== block.patternId))
       setBpm(tempoFor(block.patternId), true);
     if (!block) { totalCells = 0; nowPlayingEl.textContent = '선택된 가락이 없습니다.'; return; }
     var pattern = PATTERNS[block.patternId];
@@ -842,6 +842,10 @@
   var playing = false;
   var timeoutId = null;
   var bpm = 90;
+  // once the user manually changes the speed, keep that same speed through
+  // every following jangdan/line until they press 정지 — only then do
+  // per-jangdan default tempos take over again.
+  var manualBpmOverride = false;
   var patternTempos = {};
   function tempoFor(patternId) {
     if (patternTempos[patternId]) return patternTempos[patternId];
@@ -864,6 +868,7 @@
 
   function stopPlayback() {
     playing = false; loading = false; generation++;
+    manualBpmOverride = false;
     clearAudio();
     if (playBtn) { playBtn.textContent = "재생"; playBtn.classList.remove("is-playing"); }
   }
@@ -1150,6 +1155,7 @@
     if (automatic) bpmInput.max = Math.max(800, newBpm);
     var max = parseInt(bpmInput.max, 10);
     bpm = Math.max(min, Math.min(max, newBpm));
+    if (!automatic) manualBpmOverride = true;
     if (!automatic && displayedBlock) {
       patternTempos[displayedBlock.patternId] = bpm;
       if (displayedBlock.patternId === 'yukchae') sequenceTempos[displayedBlock.playlistIndex] = bpm - (displayedBlock.section.accelerando ? displayedBlock.repeatIndex * 40 : displayedBlock.section.finalTempo ? 280 : 0);
