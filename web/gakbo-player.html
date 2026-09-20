@@ -231,12 +231,11 @@
     background: var(--bg-card);
     box-shadow: var(--shadow);
   }
-  /* always exactly two panels — the line playing now and the one coming
-     up next — side by side, so the score stays about the same size and
-     position no matter which jangdan/line is active. */
-  .score-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px 20px; align-items: start; width: 100%; }
-  .wide-phrase { grid-column: 1 / -1; }
-  @media (max-width: 760px) { .score-grid { grid-template-columns: minmax(0,1fr); } }
+  /* always exactly two panels, stacked top to bottom — the line playing
+     now on top, the one coming up next right below it — so the score
+     stays about the same size and position no matter which jangdan/line
+     is active. */
+  .score-grid { display: flex; flex-direction: column; gap: 14px; width: 100%; }
 
   .row { display: flex; align-items: flex-start; gap: 14px; width: 100%; }
   .row-label {
