@@ -655,7 +655,7 @@
 
   // ---- per-instrument show/hide (visual only; playback keeps running underneath) ----
 
-  var visibleTracks = { gueum: true, kkwaenggwari: true, janggu: true, buk: true, jing: true, sangsoe: false, busoe: false };
+  var visibleTracks = { gueum: true, kkwaenggwari: true, janggu: true, buk: true, jing: true, sangsoe: true, busoe: true };
   var TRACK_LABELS = { gueum: "구음", kkwaenggwari: "꽹과리", janggu: "장구", buk: "북", jing: "징", sangsoe: "상쇠", busoe: "부쇠" };
   var trackTogglesEl = document.getElementById("trackToggles");
 
@@ -692,13 +692,32 @@
     });
   }
 
+  // 꽹과리는 짝쇠에서 상쇠/부쇠로 나뉘므로, 꽹과리 표시·재생을 바꾸면 상쇠·부쇠도
+  // 우선 같은 값으로 따라가게 한다 (필요하면 상쇠/부쇠만 따로 다시 조절 가능).
+  function cascadeKkwaenggwari(control, checked) {
+    ['sangsoe','busoe'].forEach(function(key){
+      if (control==='visible') { visibleTracks[key]=checked; }
+      else {
+        enabledTracks[key]=checked;
+        if (gains[key]) gains[key].gain.setValueAtTime(checked?0.35:0, ctx.currentTime);
+      }
+      var input=trackTogglesEl.querySelector('input[data-track="'+key+'"][data-control="'+control+'"]');
+      if (input) input.checked=checked;
+    });
+  }
+
   trackTogglesEl.addEventListener("change", function(e) {
     var key=e.target.dataset.track,control=e.target.dataset.control;
     if(!key)return;
-    if(control==='visible'){visibleTracks[key]=e.target.checked;applyTrackVisibility();}
+    if(control==='visible'){
+      visibleTracks[key]=e.target.checked;
+      if(key==='kkwaenggwari')cascadeKkwaenggwari('visible',e.target.checked);
+      applyTrackVisibility();
+    }
     else if(control==='audio'&&key!=='gueum'){
       enabledTracks[key]=e.target.checked;
       if(gains[key])gains[key].gain.setValueAtTime(e.target.checked?0.35:0,ctx.currentTime);
+      if(key==='kkwaenggwari')cascadeKkwaenggwari('audio',e.target.checked);
     }
   });
 
@@ -863,7 +882,7 @@
   // Voice and instrument banks intentionally have separate namespaces.
   var soundMode = 'voice';
   var soundBanks = { voice: window.SAMULLORI_VOICE_SAMPLES || {}, instrument: {} };
-  var enabledTracks = { janggu: true, kkwaenggwari: true, buk: true, jing: true, gueum: false, sangsoe: false, busoe: false };
+  var enabledTracks = { janggu: true, kkwaenggwari: true, buk: true, jing: true, gueum: false, sangsoe: true, busoe: true };
   var ctx, buffers = {}, gains = {}, master, readyPromise;
   var activeSources = new Set(), visualQueue = [], schedulerId, frameId;
   var playbackEndTime = null, playbackFinished = false;
