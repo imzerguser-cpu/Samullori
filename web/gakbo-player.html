@@ -848,6 +848,7 @@
   var manualBpmOverride = false;
   var patternTempos = {};
   function tempoFor(patternId) {
+    if (manualBpmOverride) return bpm;
     if (patternTempos[patternId]) return patternTempos[patternId];
     // Resolve the established score-order tempo, never the last viewed/accelerated BPM.
     for (var i = PATTERN_ORDER.indexOf(patternId); i >= 0; i--) {
@@ -859,6 +860,7 @@
 
   var sequenceTempos = {};
   function blockTempo(block) {
+    if (manualBpmOverride) return bpm;
     if (block.patternId !== 'yukchae') return tempoFor(block.patternId);
     var base = sequenceTempos[block.playlistIndex];
     if (!base) base = sequenceTempos[block.playlistIndex] = tempoFor(block.patternId);
