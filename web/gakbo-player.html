@@ -1147,6 +1147,17 @@
   document.getElementById("bpmDown").addEventListener("click", function () { setBpm(bpm - 10); });
   document.getElementById("bpmUp").addEventListener("click", function () { setBpm(bpm + 10); });
 
+  // 키보드 단축키: +/- 로 속도 10씩 조절, 스페이스로 재생/정지 전환.
+  // 버튼이나 입력창에 포커스가 있을 때는 그 요소의 기본 동작(예: 포커스된
+  // 버튼에서 스페이스로 클릭)을 그대로 두고 가로채지 않는다.
+  document.addEventListener("keydown", function (e) {
+    var active = document.activeElement;
+    var isControl = active && (active.tagName === "BUTTON" || active.tagName === "INPUT");
+    if (e.key === "+" || e.key === "=") { e.preventDefault(); setBpm(bpm + 10); }
+    else if (e.key === "-") { e.preventDefault(); setBpm(bpm - 10); }
+    else if ((e.key === " " || e.code === "Space") && !isControl) { e.preventDefault(); playBtn.click(); }
+  });
+
   afterPlaylistChange();
 })();
 </script>
