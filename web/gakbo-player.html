@@ -662,19 +662,22 @@
   function renderVisibilityToggles(trackKeys) {
     trackTogglesEl.replaceChildren();
     var table=document.createElement('table'); table.className='track-controls';
-    table.innerHTML='<thead><tr><th>악기</th><th>표시</th><th>재생</th></tr></thead>';
-    var body=document.createElement('tbody');
     var keys=['kkwaenggwari','janggu','buk','jing'].concat(trackKeys.filter(function(k){return !['kkwaenggwari','janggu','buk','jing'].includes(k);}));
-    keys.forEach(function(key){
+    var thead=document.createElement('thead'), headRow=document.createElement('tr');
+    headRow.appendChild(document.createElement('th'));
+    keys.forEach(function(key){ var th=document.createElement('th'); th.textContent=key==='gueum'?'구음 글자':TRACK_LABELS[key]; headRow.appendChild(th); });
+    thead.appendChild(headRow); table.appendChild(thead);
+    var body=document.createElement('tbody');
+    ['visible','audio'].forEach(function(control){
       var tr=document.createElement('tr'),name=document.createElement('th'); name.scope='row';
-      name.textContent=key==='gueum'?'구음 글자':TRACK_LABELS[key];tr.appendChild(name);
-      ['visible','audio'].forEach(function(control){
+      name.textContent=control==='visible'?'표시':'재생';tr.appendChild(name);
+      keys.forEach(function(key){
         var td=document.createElement('td');
         if(key==='gueum'&&control==='audio'){td.textContent='표시만';}
         else {
           var input=document.createElement('input');input.type='checkbox';input.dataset.track=key;input.dataset.control=control;
           input.checked=control==='visible'?visibleTracks[key]!==false:enabledTracks[key]===true;
-          input.setAttribute('aria-label',TRACK_LABELS[key]+' '+(control==='visible'?'표시':'재생'));td.appendChild(input);
+          input.setAttribute('aria-label',(key==='gueum'?'구음 글자':TRACK_LABELS[key])+' '+(control==='visible'?'표시':'재생'));td.appendChild(input);
         }
         tr.appendChild(td);
       });body.appendChild(tr);
