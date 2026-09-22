@@ -121,7 +121,13 @@
   .cell.is-admin-editable { cursor: text; }
   .cell.is-admin-editable:hover { box-shadow: inset 0 0 0 2px var(--accent-buk); }
   .cell.is-admin-editable .label:focus { outline: 2px solid var(--accent-buk); outline-offset: 1px; border-radius: 2px; }
-  .cells-wraps { display: flex; flex-direction: column; gap: 6px; }
+  .cells-wraps { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+  .line-merge-btn {
+    font: inherit; font-size: 11px; color: var(--ink-muted);
+    background: none; border: 1px dashed var(--line-strong); border-radius: 3px;
+    padding: 1px 6px; margin: -2px 0; cursor: pointer;
+  }
+  .line-merge-btn:hover { color: var(--ink); border-color: var(--accent-buk); }
   .cell-editor {
     position: fixed; z-index: 50;
     background: var(--bg-card); border: 1px solid var(--line-strong); box-shadow: var(--shadow);
@@ -706,6 +712,20 @@
         wrapsContainer.appendChild(wrap);
         cells.forEach(function(c, index) {
           if (index > 0 && section.lineBreaks && section.lineBreaks.indexOf(index) !== -1) {
+            if (isAdminMode) {
+              var mergeBtn = document.createElement('button');
+              mergeBtn.type = 'button'; mergeBtn.className = 'line-merge-btn';
+              mergeBtn.textContent = '↑ 줄 합치기';
+              mergeBtn.title = '이 줄바꿈 없애고 위 줄과 합치기';
+              (function (breakIndex) {
+                mergeBtn.addEventListener('click', function () {
+                  var at = section.lineBreaks.indexOf(breakIndex);
+                  if (at !== -1) section.lineBreaks.splice(at, 1);
+                  applyPatternEdit(systemBlock.patternId);
+                });
+              })(index);
+              wrapsContainer.appendChild(mergeBtn);
+            }
             wrap = document.createElement('div'); wrap.className = 'cells';
             wrapsContainer.appendChild(wrap);
           }
