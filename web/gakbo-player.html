@@ -683,7 +683,7 @@
       system.dataset.patternId = systemBlock.patternId;
       if ((systemBlock.patternId === 'jjaksoe' && sectionIndex === 0) || (systemBlock.patternId === 'hwimori_gibon2' && section.ending)) system.classList.add('wide-phrase');
       var caption = document.createElement('div'); caption.className = 'system-caption';
-      caption.textContent = (interactive ? '' : '다음 순서 · ') + systemPattern.name + ' · ' + section.label +
+      caption.textContent = (interactive || isAdminMode ? '' : '다음 순서 · ') + systemPattern.name + ' · ' + section.label +
         (section.repeat > 1 ? ' · ' + (section.exchange ? 8 : section.repeat) + '회' : '') + (section.note ? ' · ' + section.note : '');
       system.appendChild(caption);
       var scroll = document.createElement('div'); scroll.className = 'system-scroll';
@@ -714,13 +714,15 @@
             el.appendChild(text);
             if (interactive) {
               el.dataset.section=sectionIndex; el.dataset.cell=index;
-              if (isAdminMode) {
-                el.classList.add('is-admin-editable');
-                el.addEventListener('click', function () { openCellEditor(systemBlock.patternId, sectionIndex, key, index, el); });
-              } else {
-                el.addEventListener('click',function(){ jumpToScoreCell(sectionIndex,index); });
-              }
               (cellEls[key] || (cellEls[key]=[])).push(el);
+            }
+            // 편집 가능 여부는 재생 중인 줄인지와 무관하게, 관리자 모드이면
+            // 화면에 그려진 모든 줄(현재 줄이 아니어도)에 적용한다.
+            if (isAdminMode) {
+              el.classList.add('is-admin-editable');
+              el.addEventListener('click', function () { openCellEditor(systemBlock.patternId, sectionIndex, key, index, el); });
+            } else if (interactive) {
+              el.addEventListener('click',function(){ jumpToScoreCell(sectionIndex,index); });
             }
           }
           wrap.appendChild(el);
@@ -738,7 +740,15 @@
       });
       grid.appendChild(system);
     }
-    if (block.section) {
+    if (isAdminMode) {
+      // 관리자 모드에서는 수정을 위해 이 가락의 모든 줄을 한 번에 보여준다
+      // (재생 중인 줄만 강조 표시되고, 나머지 줄도 전부 클릭해서 편집 가능).
+      pattern.sections.forEach(function (section, sectionIndex) {
+        var isCurrent = sectionIndex === block.sectionIndex;
+        var sysBlock = isCurrent ? block : { patternId: block.patternId, section: section, sectionIndex: sectionIndex, repeatIndex: 0, repeatTotal: 1 };
+        buildSystem(sysBlock, isCurrent);
+      });
+    } else if (block.section) {
       buildSystem(block, true);
       var nextBlock = blocks.length > 1 ? blocks[(blockIndex + 1) % blocks.length] : null;
       if (nextBlock && nextBlock.section) buildSystem(nextBlock, false);
