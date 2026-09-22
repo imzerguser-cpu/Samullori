@@ -120,6 +120,8 @@
   /* 관리자 모드에서 칸 편집 팝오버 */
   .cell.is-admin-editable { cursor: text; }
   .cell.is-admin-editable:hover { box-shadow: inset 0 0 0 2px var(--accent-buk); }
+  .cell.is-admin-editable .label:focus { outline: 2px solid var(--accent-buk); outline-offset: 1px; border-radius: 2px; }
+  .cells-wraps { display: flex; flex-direction: column; gap: 6px; }
   .cell-editor {
     position: fixed; z-index: 50;
     background: var(--bg-card); border: 1px solid var(--line-strong); box-shadow: var(--shadow);
@@ -460,7 +462,8 @@
   <div class="admin-panel" id="adminPanel" hidden>
     <div class="admin-panel-head">
       <strong>관리자 설정</strong>
-      <span class="admin-hint">이 브라우저에 저장됩니다 · 가락 재생 화면에서 칸을 클릭하면 수정할 수 있습니다.</span>
+      <span class="admin-hint">가락 재생 화면에서 칸을 왼쪽 클릭하면 글자를 바로 고쳐 쓸 수 있고, 오른쪽 클릭하면 칸 추가·삭제·굵은 선·줄바꿈 메뉴가 열립니다. 수정한 내용은 "전체 저장"을 눌러야 이 브라우저에 저장됩니다.</span>
+      <button class="icon-btn" id="adminSaveAllBtn" type="button" disabled>전체 저장</button>
       <button class="icon-btn" id="adminExportBtn" type="button">CSV로 내보내기</button>
     </div>
     <div class="admin-table-scroll">
@@ -695,12 +698,22 @@
           if (strong) line.classList.add('strong-turn');
         }
         line.appendChild(label);
+        // section.lineBreaks(관리자가 넣은 줄바꿈 위치)마다 새 .cells 줄을
+        // 시작해서 여러 줄로 나눠 그린다 — 모든 줄(악기/박자)이 같은 위치에서
+        // 함께 끊기도록 섹션 단위로 관리한다.
+        var wrapsContainer = document.createElement('div'); wrapsContainer.className = 'cells-wraps';
         var wrap = document.createElement('div'); wrap.className = 'cells';
+        wrapsContainer.appendChild(wrap);
         cells.forEach(function(c, index) {
+          if (index > 0 && section.lineBreaks && section.lineBreaks.indexOf(index) !== -1) {
+            wrap = document.createElement('div'); wrap.className = 'cells';
+            wrapsContainer.appendChild(wrap);
+          }
           var el = document.createElement('div');
           var color = /soe$/.test(key) || key === 'gueum' ? 'kkwaenggwari' : key;
           el.className = header ? 'group-label' : 'cell ' + (c.strike_count ? 'struck-' + color : 'rest');
-          if (!index || c.measure !== cells[index-1].measure) el.classList.add('measure-start');
+          var isDivider = section.dividers && section.dividers.indexOf(index) !== -1;
+          if (!index || c.measure !== cells[index-1].measure || isDivider) el.classList.add('measure-start');
           if (index === cells.length-1 || c.measure !== cells[index+1].measure) el.classList.add('measure-end');
           if (header) el.textContent = section.beatLabels[index] || '';
           else {
@@ -713,10 +726,26 @@
               (cellEls[key] || (cellEls[key]=[])).push(el);
             }
             // 편집 가능 여부는 재생 중인 줄인지와 무관하게, 관리자 모드이면
-            // 화면에 그려진 모든 줄(현재 줄이 아니어도)에 적용한다.
+            // 화면에 그려진 모든 줄(현재 줄이 아니어도)에 적용한다. 왼쪽 클릭은
+            // 글자를 바로 고쳐 쓰는 인라인 편집, 오른쪽 클릭은 칸 추가/삭제·
+            // 굵은 선·줄바꿈 같은 구조 편집 메뉴를 연다.
             if (isAdminMode) {
               el.classList.add('is-admin-editable');
-              el.addEventListener('click', function () { openCellEditor(systemBlock.patternId, sectionIndex, key, index, el); });
+              text.contentEditable = 'true';
+              text.spellcheck = false;
+              text.addEventListener('keydown', function (ev) {
+                if (ev.key === 'Enter') { ev.preventDefault(); text.blur(); }
+              });
+              text.addEventListener('blur', function () {
+                var newLabel = text.textContent.replace(/\s+/g, '').trim();
+                text.textContent = newLabel;
+                c.label = newLabel;
+                c.strike_count = newLabel ? 1 : 0;
+                el.classList.remove('struck-' + color, 'rest');
+                el.classList.add(newLabel ? 'struck-' + color : 'rest');
+                markPatternDirty(systemBlock.patternId);
+              });
+              el.addEventListener('contextmenu', function (ev) { ev.preventDefault(); openCellEditor(systemBlock.patternId, sectionIndex, key, index, el); });
             } else if (interactive) {
               el.addEventListener('click',function(){ jumpToScoreCell(sectionIndex,index); });
             }
@@ -727,7 +756,7 @@
         if (key === section.lastPassSignal || (section.signalTracks || []).includes(key)) {
           line.classList.add('signal-row'); label.textContent='상쇠 신호';
         }
-        line.appendChild(wrap); scroll.appendChild(line);
+        line.appendChild(wrapsContainer); scroll.appendChild(line);
       }
       row('', '박자', reference, true);
       var tracks=tracksFor(section);
@@ -1368,6 +1397,7 @@
     adminPanelEl.hidden = false;
     adminToggleBtn.textContent = '관리자 모드 종료';
     renderAdminTable();
+    updateSaveAllButton();
     renderBlock(blocks[blockIndex]);
   });
 
@@ -1397,44 +1427,73 @@
     URL.revokeObjectURL(url);
   }
   document.getElementById('adminExportBtn').addEventListener('click', exportPatternsCsv);
+  document.getElementById('adminSaveAllBtn').addEventListener('click', function () { saveAllPendingEdits(); });
 
-  // ---- 관리자 모드 칸 편집: 클릭한 칸의 글자를 바꾸거나, 그 위치에 칸을
-  // 추가/삭제한다. 한 섹션의 모든 악기·구음 줄은 칸 수가 항상 같아야 하므로
-  // 추가/삭제는 그 섹션의 모든 줄에 동시에 적용한다. ----
+  // ---- 관리자 모드 칸 편집: 글자는 칸을 왼쪽 클릭해서 바로 고쳐 쓰고(인라인),
+  // 칸 추가/삭제·굵은 선·줄바꿈은 오른쪽 클릭 메뉴로 한다. 편집은 화면과
+  // 메모리에는 바로 반영되지만, "전체 저장" 버튼을 눌러야 이 브라우저에
+  // 실제로 저장된다 — 한 글자 고칠 때마다 저장하지 않아도 되게 하기 위함.
+  // 한 섹션의 모든 악기·구음 줄은 칸 수가 항상 같아야 하므로 추가/삭제는 그
+  // 섹션의 모든 줄에 동시에 적용한다. ----
   var closeActiveCellEditor = null;
-  function persistPatternEdit(patternId) {
-    adminOverrides.patterns[patternId] = Object.assign({}, adminOverrides.patterns[patternId], { sections: PATTERNS[patternId].sections });
-    saveAdminOverrides();
+  var dirtyPatterns = {};
+  function markPatternDirty(patternId) {
+    dirtyPatterns[patternId] = true;
+    updateSaveAllButton();
+  }
+  function applyPatternEdit(patternId) {
+    markPatternDirty(patternId);
     blocks = buildBlocks();
     if (blockIndex >= blocks.length) blockIndex = 0;
     currentIndex = 0;
     renderBlock(blocks[blockIndex]);
   }
+  function saveAllPendingEdits() {
+    var ids = Object.keys(dirtyPatterns);
+    ids.forEach(function (id) {
+      adminOverrides.patterns[id] = Object.assign({}, adminOverrides.patterns[id], { sections: PATTERNS[id].sections });
+    });
+    saveAdminOverrides();
+    dirtyPatterns = {};
+    updateSaveAllButton();
+    window.alert(ids.length ? '저장했습니다 (' + ids.length + '개 가락).' : '저장할 변경사항이 없습니다.');
+  }
+  function updateSaveAllButton() {
+    var btn = document.getElementById('adminSaveAllBtn');
+    if (!btn) return;
+    var count = Object.keys(dirtyPatterns).length;
+    btn.textContent = count ? '전체 저장 (변경사항 ' + count + '개)' : '전체 저장';
+    btn.disabled = !count;
+  }
   function openCellEditor(patternId, sectionIndex, trackKey, cellIndex, cellEl) {
     if (closeActiveCellEditor) closeActiveCellEditor();
     var section = PATTERNS[patternId].sections[sectionIndex];
-    var cell = section.cells[trackKey][cellIndex];
+    if (!section.dividers) section.dividers = [];
+    if (!section.lineBreaks) section.lineBreaks = [];
     var editor = document.createElement('div');
     editor.className = 'cell-editor';
     var rect = cellEl.getBoundingClientRect();
     editor.style.top = (rect.bottom + 6) + 'px';
     editor.style.left = Math.max(4, Math.min(rect.left, window.innerWidth - 210)) + 'px';
+    var hasDivider = section.dividers.indexOf(cellIndex) !== -1;
+    var hasBreak = section.lineBreaks.indexOf(cellIndex) !== -1;
     editor.innerHTML =
-      '<input type="text" id="cellEditorInput" placeholder="글자 (비우면 쉼)">' +
       '<div class="cell-editor-row">' +
-        '<button type="button" data-act="save">저장</button>' +
         '<button type="button" data-act="rest">쉼으로</button>' +
-        '<button type="button" data-act="cancel">취소</button>' +
+        '<button type="button" data-act="delete">이 칸 삭제</button>' +
       '</div>' +
       '<div class="cell-editor-row">' +
         '<button type="button" data-act="insert-before">◀칸 추가</button>' +
         '<button type="button" data-act="insert-after">칸 추가▶</button>' +
-        '<button type="button" data-act="delete">이 칸 삭제</button>' +
-      '</div>';
+      '</div>' +
+      '<div class="cell-editor-row">' +
+        '<button type="button" data-act="divider">이 칸 앞 굵은 선 ' + (hasDivider ? '없애기' : '넣기') + '</button>' +
+      '</div>' +
+      '<div class="cell-editor-row">' +
+        '<button type="button" data-act="linebreak">이 칸 앞 줄바꿈 ' + (hasBreak ? '없애기' : '넣기') + '</button>' +
+      '</div>' +
+      '<div class="cell-editor-row"><button type="button" data-act="cancel">닫기</button></div>';
     document.body.appendChild(editor);
-    var input = editor.querySelector('#cellEditorInput');
-    input.value = cell.label || '';
-    input.focus(); input.select();
 
     function close() {
       if (editor.parentNode) editor.parentNode.removeChild(editor);
@@ -1445,22 +1504,20 @@
     setTimeout(function () { document.addEventListener('mousedown', outsideClick, true); }, 0);
     closeActiveCellEditor = close;
 
-    function applyLabel(newLabel) {
-      var trimmed = newLabel.trim();
-      cell.label = trimmed;
-      cell.strike_count = trimmed ? 1 : 0;
-      persistPatternEdit(patternId);
-      close();
+    function toggleIndex(list, index) {
+      var at = list.indexOf(index);
+      if (at === -1) list.push(index); else list.splice(at, 1);
+      list.sort(function (a, b) { return a - b; });
     }
     editor.addEventListener('click', function (ev) {
       var act = ev.target.dataset.act;
       if (!act) return;
-      if (act === 'save') applyLabel(input.value);
-      else if (act === 'rest') applyLabel('');
-      else if (act === 'cancel') close();
-      else if (act === 'delete') {
+      if (act === 'cancel') { close(); return; }
+      if (act === 'rest') {
+        section.cells[trackKey][cellIndex].label = '';
+        section.cells[trackKey][cellIndex].strike_count = 0;
+      } else if (act === 'delete') {
         Object.keys(section.cells).forEach(function (t) { section.cells[t].splice(cellIndex, 1); });
-        persistPatternEdit(patternId);
       } else if (act === 'insert-before' || act === 'insert-after') {
         var insertAt = act === 'insert-before' ? cellIndex : cellIndex + 1;
         Object.keys(section.cells).forEach(function (t) {
@@ -1468,12 +1525,13 @@
           var ref = arr[Math.min(insertAt, arr.length - 1)] || arr[arr.length - 1];
           arr.splice(insertAt, 0, { id: 'c' + (arr.length + 1), measure: ref ? ref.measure : 1, label: '', strike_count: 0 });
         });
-        persistPatternEdit(patternId);
+      } else if (act === 'divider') {
+        toggleIndex(section.dividers, cellIndex);
+      } else if (act === 'linebreak') {
+        toggleIndex(section.lineBreaks, cellIndex);
       }
-    });
-    input.addEventListener('keydown', function (ev) {
-      if (ev.key === 'Enter') { ev.stopPropagation(); applyLabel(input.value); }
-      else if (ev.key === 'Escape') { ev.stopPropagation(); close(); }
+      applyPatternEdit(patternId);
+      close();
     });
   }
 
