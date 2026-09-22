@@ -672,7 +672,6 @@
       legend.textContent='보라색 밑줄: 궁채를 넘겨 채편 연주'; grid.appendChild(legend);
     }
     function layoutClassFor(patternId) {
-      if (['jjaksoe','jjaksoe_exchange'].includes(patternId)) return 'jjaksoe-layout';
       if (patternId === 'byeoldalgeori_saseol') return 'saseol-layout';
       if (PATTERNS[patternId].family === 'yukchae') return 'yukchae-layout';
       return '';
