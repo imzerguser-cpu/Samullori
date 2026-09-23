@@ -188,6 +188,7 @@
     overflow-y: auto;
     padding: 20px 24px 24px;
   }
+  #manualOverlay .modal-card { max-width: 780px; }
   .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
   .modal-head h2 { margin: 0; font-size: 20px; font-family: "Gowun Batang", "Nanum Myeongjo", serif; }
   .modal-card h3 { font-size: 15px; margin: 20px 0 6px; color: var(--ink); }
@@ -195,6 +196,17 @@
   .modal-card p, .modal-card li { font-size: 13.5px; line-height: 1.6; color: var(--ink-muted); }
   .modal-card ul { margin: 0 0 4px; padding-left: 18px; }
   .modal-card li { margin-bottom: 4px; }
+  .manual-shot {
+    display: block; max-width: 100%; height: auto; margin: 10px 0 4px;
+    border: 1px solid var(--line-strong); box-shadow: var(--shadow); background: var(--bg-card);
+  }
+  .manual-shot-caption { font-size: 12px; color: var(--ink-muted); margin: 0 0 14px; }
+  .manual-callout-key { font-size: 12px; color: var(--ink-muted); margin: 4px 0 14px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .manual-callout-key span { display: inline-flex; align-items: center; gap: 5px; }
+  .manual-callout-num {
+    display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px;
+    border-radius: 50%; background: #e0562c; color: #fff; font-weight: 700; font-size: 11px; flex: none;
+  }
   .modal-card strong { color: var(--ink); font-weight: 700; }
   .controls {
     margin-top: 24px;
@@ -612,6 +624,11 @@
 
     <h3>1. 가락 고르고 순서 정하기</h3>
     <p>화면 아래쪽 "가락 목록"과 "재생 목록"은 평소엔 접혀 있습니다. 제목을 누르면 펼쳐지고, 다시 누르면 접힙니다.</p>
+    <img class="manual-shot" src="manual-images/shot1-picker.png" alt="가락 목록의 추가 버튼과 재생 목록의 순서/삭제 버튼">
+    <div class="manual-callout-key">
+      <span><span class="manual-callout-num">1</span>가락 목록의 + 추가 버튼 — 누르면 재생 목록 맨 뒤에 붙습니다</span>
+      <span><span class="manual-callout-num">2</span>재생 목록의 한 줄 — ▲▼로 순서 변경, ✕로 삭제, 이름을 누르면 그 가락부터 재생</span>
+    </div>
     <ul>
       <li><strong>가락 목록</strong>에서 원하는 가락의 <strong>+ 추가</strong> 버튼을 누르면 재생 목록 맨 뒤에 붙습니다.</li>
       <li><strong>재생 목록</strong>에서는 ▲▼ 버튼으로 순서를 바꾸고, ✕ 버튼으로 목록에서 뺄 수 있습니다.</li>
@@ -619,6 +636,14 @@
     </ul>
 
     <h3>2. 재생하기</h3>
+    <img class="manual-shot" src="manual-images/shot2-playback.png" alt="재생, 속도, 표시·재생할 악기, 소리 종류, 전체화면 버튼 위치">
+    <div class="manual-callout-key">
+      <span><span class="manual-callout-num">1</span>재생/정지</span>
+      <span><span class="manual-callout-num">2</span>속도(BPM) 조절</span>
+      <span><span class="manual-callout-num">3</span>표시·재생할 악기 체크박스</span>
+      <span><span class="manual-callout-num">4</span>소리 종류 선택</span>
+      <span><span class="manual-callout-num">5</span>전체화면</span>
+    </div>
     <ul>
       <li><strong>재생</strong> 버튼으로 재생 목록을 순서대로 이어서 재생/정지합니다. 신호가락처럼 꽹과리만 치는 구간은 다른 악기 줄이 나타나지 않습니다.</li>
       <li><strong>속도</strong>는 −10 / +10 버튼이나 가운데 슬라이더로 조절합니다(스페이스바 재생·정지, +/− 키로도 속도 조절 가능).</li>
@@ -629,18 +654,27 @@
 
     <h3>3. 가락보 고치기 (관리자 모드)</h3>
     <p>오른쪽 위 <strong>관리자 모드</strong> 버튼을 누르고 비밀번호를 입력하면 편집 기능이 열립니다.</p>
+    <img class="manual-shot" src="manual-images/shot3-adminbtn.png" alt="화면 오른쪽 위 관리자 모드 버튼">
+    <p class="manual-shot-caption">화면 오른쪽 위, "사용설명서" 버튼 옆에 있습니다.</p>
     <ul>
       <li>재생 화면의 칸을 <strong>왼쪽 클릭</strong>하면 그 칸의 글자를 바로 고쳐 쓸 수 있습니다.</li>
-      <li>칸을 <strong>오른쪽 클릭</strong>하면 쉼으로 만들기·이 칸 삭제·칸 추가·굵은 선(마디 구분선) 넣고 빼기·줄바꿈 넣고 빼기 메뉴가 열립니다. 줄바꿈으로 나뉜 줄은 "↑ 줄 합치기" 버튼으로 다시 합칠 수 있습니다.</li>
-      <li>수정한 내용은 위쪽 <strong>전체 저장</strong> 버튼을 눌러야 실제로 저장됩니다. 저장을 누르면 이 컴퓨터뿐 아니라(처음 한 번은 GitHub 토큰을 물어봅니다) 다른 컴퓨터에서 같은 가락보를 열었을 때도 잠시 후 똑같이 반영됩니다.</li>
+      <li>칸을 <strong>오른쪽 클릭</strong>하면 아래처럼 쉼으로 만들기·이 칸 삭제·칸 추가·굵은 선(마디 구분선) 넣고 빼기·줄바꿈 넣고 빼기 메뉴가 열립니다. 줄바꿈으로 나뉜 줄은 "↑ 줄 합치기" 버튼으로 다시 합칠 수 있습니다.</li>
+    </ul>
+    <img class="manual-shot" src="manual-images/shot5-cellmenu.png" alt="칸을 오른쪽 클릭하면 뜨는 편집 메뉴" style="max-width:280px;">
+    <ul>
+      <li>수정한 내용은 아래 스크린샷처럼 관리자 패널의 <strong>전체 저장</strong> 버튼을 눌러야 실제로 저장됩니다. 저장을 누르면 이 컴퓨터뿐 아니라(처음 한 번은 GitHub 토큰을 물어봅니다) 다른 컴퓨터에서 같은 가락보를 열었을 때도 잠시 후 똑같이 반영됩니다.</li>
       <li><strong>가락 속도 설정하기</strong>(제목을 누르면 펼쳐집니다)에서는 가락별 기본 속도(BPM)와, 페이지를 처음 열었을 때 재생 목록에 기본으로 들어갈지를 정합니다.</li>
       <li><strong>가락 목록</strong> 제목 옆의 "새 가락 추가"에서 가락 이름·악기 구성·칸 수를 정해 새 가락을 만들 수 있습니다. 칸은 전부 쉼으로 시작하니 재생 화면에서 글자를 채워 넣으세요.</li>
+    </ul>
+    <img class="manual-shot" src="manual-images/shot3b-adminpanel-top.png" alt="관리자 패널의 CSV 내보내기, 비밀번호 변경, 수정사항 내보내기/가져오기 버튼">
+    <ul>
       <li><strong>CSV로 내보내기</strong>로 모든 가락의 글자를 표 파일로 받아볼 수 있고, <strong>관리자 비밀번호 변경</strong>으로 이 가락보만의 비밀번호를 바꿀 수 있습니다.</li>
       <li><strong>내 수정사항 내보내기/가져오기</strong>로 이 가락보의 수정 내용을 JSON 파일로 저장하거나 다른 컴퓨터에 옮겨 불러올 수 있습니다.</li>
     </ul>
 
     <h3>4. 나만의 가락보 만들기</h3>
     <p>지금 보고 있는 가락보는 다른 사람이 관리자 모드 비밀번호를 몰라 함부로 고칠 수 없습니다. 다른 선생님도 자신만의 가락보를 따로 만들어 스스로 관리자 모드로 고칠 수 있습니다.</p>
+    <img class="manual-shot" src="manual-images/shot4-workspace.png" alt="제목 아래 나만의 가락보 만들기 버튼">
     <ul>
       <li>제목 아래 <strong>나만의 가락보 만들기</strong> 버튼을 눌러 이름(영문/숫자/한글)을 정하면, 그 이름이 담긴 전용 주소로 이동합니다. 이 주소를 즐겨찾기 해두면 언제든 같은 가락보로 돌아올 수 있습니다.</li>
       <li>그 가락보에서 처음 관리자 모드를 열 때 비밀번호를 새로 정하게 되며, 이후 그 가락보의 수정 내용은 원래 가락보나 다른 선생님의 가락보에 전혀 영향을 주지 않습니다.</li>
