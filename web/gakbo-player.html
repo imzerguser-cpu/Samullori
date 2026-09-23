@@ -107,6 +107,8 @@
 
   .now-playing-right { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
   .now-playing-right .controls { margin-top: 0; }
+  .now-playing-right .sound-controls { flex: 0 1 auto; max-width: 280px; }
+  .now-playing-right .sound-controls #audioStatus { white-space: normal; }
 
   .admin-panel {
     margin-top: 16px;
@@ -518,9 +520,9 @@
         <span class="track-controls-label">표시·재생할 악기:</span>
         <div id="trackToggles"></div>
       </div>
-      <div class="controls track-controls">
+      <div class="controls track-controls sound-controls">
         <span>소리 종류:</span>
-        <div role="group" aria-label="소리 종류" style="display:flex;gap:8px">
+        <div role="group" aria-label="소리 종류" style="display:flex;gap:8px;flex-wrap:wrap">
           <button type="button" id="silentModeBtn" class="transport" aria-pressed="false">소리 없이 박자만</button>
           <button type="button" id="voiceModeBtn" class="transport" aria-pressed="true">구음</button>
           <button type="button" id="instrumentModeBtn" class="transport" aria-pressed="false" title="타령장단 장구 녹음 사용">악기소리</button>
