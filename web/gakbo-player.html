@@ -531,7 +531,7 @@
         <div role="group" aria-label="소리 종류" style="display:flex;gap:8px;flex-wrap:wrap">
           <button type="button" id="silentModeBtn" class="transport" aria-pressed="false">소리 없이 박자만</button>
           <button type="button" id="voiceModeBtn" class="transport" aria-pressed="true">구음</button>
-          <button type="button" id="instrumentModeBtn" class="transport" aria-pressed="false" title="타령장단 장구 녹음 사용">악기소리</button>
+          <button type="button" id="instrumentModeBtn" class="transport" aria-pressed="false" title="직접 녹음한 악기 소리 사용">악기소리</button>
         </div>
         <p id="audioStatus" role="status" style="width:100%;margin:0;font-size:13px"></p>
       </div>
@@ -1426,7 +1426,9 @@
     precedingVoices[track] = {source:source,envelope:envelope,beat:beatTime,end:time+duration,volume:volume || 1};
   }
   function playInstrument(pattern,track,token,time,volume) {
-    var key=pattern+'/'+track+'/'+token,buffer=instrumentBuffers[key];
+    var key=pattern+'/'+track+'/'+token;
+    if(!instrumentBuffers[key]) key='_generic/'+track+'/'+token;
+    var buffer=instrumentBuffers[key];
     if(!buffer)return;
     var start=Math.max(ctx.currentTime,time-instrumentLead[key]);
     var source=ctx.createBufferSource(),envelope=ctx.createGain();source.buffer=buffer;
@@ -1541,7 +1543,7 @@
     if (soundMode === 'instrument') {
       audioStatus.textContent=displayedBlock && displayedBlock.patternId==='taryeong'
         ? '악기소리 · 직접 녹음한 타령장단 장구 · 분석 기본 속도 143 BPM · 다른 악기 녹음은 준비 중'
-        : '악기소리 · 현재 타령장단의 장구 녹음만 준비되어 있습니다.';
+        : '악기소리 · 직접 녹음한 꽹과리·장구·북·징 기본 구음만 재생 · 겹치는 글자가 없으면 소리가 나지 않습니다.';
       return;
     }
     if (soundMode === 'silent') { audioStatus.textContent='소리 없이 선택한 악기의 박자만 표시합니다.'; return; }
