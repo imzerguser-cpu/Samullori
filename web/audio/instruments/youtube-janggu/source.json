@@ -1,0 +1,27 @@
+{
+  "url": "https://www.youtube.com/watch?v=CX4axgpi5_0",
+  "samples": [
+    {
+      "token": "덩",
+      "start": 440.5,
+      "duration": 1.5,
+      "gain": 1,
+      "file": "deong.mp3"
+    },
+    {
+      "token": "따",
+      "start": 365.82,
+      "duration": 1.5,
+      "gain": 1,
+      "file": "tta.mp3"
+    },
+    {
+      "token": "쿵",
+      "start": 396.016,
+      "duration": 1.5,
+      "gain": 1,
+      "file": "kung.mp3"
+    }
+  ],
+  "note": "영상 화면의 따/궁/덩 타법 구간을 대조. 궁 타법 단독 타격을 요청한 쿵 샘플로 사용. 원음 높이와 속도 유지."
+}
