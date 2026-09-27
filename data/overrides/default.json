@@ -4581,12 +4581,6 @@
                 "mnemonic": ""
               },
               {
-                "id": "c32",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
-              },
-              {
                 "id": "c17",
                 "measure": 1,
                 "label": "",
@@ -4683,12 +4677,6 @@
                 "label": "",
                 "strike_count": 0,
                 "mnemonic": ""
-              },
-              {
-                "id": "c32",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
               }
             ],
             "busoe": [
@@ -4805,12 +4793,6 @@
                 "mnemonic": "친"
               },
               {
-                "id": "c32",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
-              },
-              {
                 "id": "c17",
                 "measure": 1,
                 "label": "갱",
@@ -4907,12 +4889,6 @@
                 "label": "",
                 "strike_count": 0,
                 "mnemonic": ""
-              },
-              {
-                "id": "c32",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
               }
             ],
             "janggu": [
@@ -5017,12 +4993,6 @@
                 "strike_count": 1
               },
               {
-                "id": "c32",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
-              },
-              {
                 "id": "c17",
                 "measure": 1,
                 "label": "궁",
@@ -5109,12 +5079,6 @@
                 "label": "기따",
                 "strike_count": 1,
                 "voiceLabel": "따"
-              },
-              {
-                "id": "c32",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
               }
             ],
             "buk": [
@@ -5215,12 +5179,6 @@
                 "strike_count": 0
               },
               {
-                "id": "c32",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
-              },
-              {
                 "id": "c17",
                 "measure": 1,
                 "label": "둥",
@@ -5300,12 +5258,6 @@
               },
               {
                 "id": "c30",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
-              },
-              {
-                "id": "c32",
                 "measure": 1,
                 "label": "",
                 "strike_count": 0
@@ -5409,12 +5361,6 @@
                 "strike_count": 0
               },
               {
-                "id": "c32",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
-              },
-              {
                 "id": "c17",
                 "measure": 1,
                 "label": "징",
@@ -5497,12 +5443,6 @@
                 "measure": 1,
                 "label": "",
                 "strike_count": 0
-              },
-              {
-                "id": "c32",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
               }
             ]
           },
@@ -5536,9 +5476,7 @@
             "27",
             "28",
             "29",
-            "30",
-            "31",
-            "32"
+            "30"
           ],
           "groups": [
             15,
