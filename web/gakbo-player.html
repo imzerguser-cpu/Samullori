@@ -769,6 +769,19 @@
       return await res.json();
     } catch (e) { return null; }
   }
+  async function pushOnce(token, apiUrl) {
+    var getRes = await fetch(apiUrl + '?ref=' + GITHUB_BRANCH, { headers: { 'Authorization': 'token ' + token } });
+    var sha = null;
+    if (getRes.ok) { var info = await getRes.json(); sha = info.sha; }
+    else if (getRes.status !== 404) { throw new Error('조회 실패 (' + getRes.status + ')'); }
+    var body = { message: '가락보 수정 (' + WORKSPACE_ID + ')', content: utf8ToBase64(JSON.stringify(adminOverrides, null, 2)), branch: GITHUB_BRANCH };
+    if (sha) body.sha = sha;
+    return fetch(apiUrl, {
+      method: 'PUT',
+      headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+  }
   async function pushOverridesToGithub() {
     var token = getGithubToken();
     if (!token) {
@@ -778,27 +791,33 @@
     }
     var apiUrl = 'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/' + GITHUB_DATA_PATH;
     try {
-      var sha = null;
-      var getRes = await fetch(apiUrl + '?ref=' + GITHUB_BRANCH, { headers: { 'Authorization': 'token ' + token } });
-      if (getRes.ok) { var info = await getRes.json(); sha = info.sha; }
-      else if (getRes.status !== 404) { throw new Error('조회 실패 (' + getRes.status + ')'); }
-      var body = { message: '가락보 수정 (' + WORKSPACE_ID + ')', content: utf8ToBase64(JSON.stringify(adminOverrides, null, 2)), branch: GITHUB_BRANCH };
-      if (sha) body.sha = sha;
-      var putRes = await fetch(apiUrl, {
-        method: 'PUT',
-        headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      });
+      var putRes = await pushOnce(token, apiUrl);
+      if (putRes.status === 409) {
+        // Another save landed between our GET and PUT (e.g. a burst of quick edits); the
+        // file's sha moved, so re-read it and retry once with the current sha.
+        putRes = await pushOnce(token, apiUrl);
+      }
       if (!putRes.ok) throw new Error('저장 실패 (' + putRes.status + ')');
+      audioStatus.textContent = '다른 기기에도 저장됨 · ' + new Date().toLocaleTimeString('ko-KR');
       return true;
     } catch (e) {
       window.alert('다른 컴퓨터에도 반영되도록 저장하는 데 실패했습니다: ' + e.message + '\n(이 컴퓨터에는 정상적으로 저장되었습니다. 토큰이 틀렸다면 관리자 비밀번호 변경 버튼 옆의 저장을 다시 시도해 새 토큰을 입력해주세요.)');
       return false;
     }
   }
+  var githubPushChain = Promise.resolve();
+  var githubPushPending = false;
+  function queuePushToGithub() {
+    githubPushPending = true;
+    githubPushChain = githubPushChain.then(function () {
+      if (!githubPushPending) return;
+      githubPushPending = false;
+      return pushOverridesToGithub();
+    });
+  }
   function saveAdminOverrides() {
     try { localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(adminOverrides)); } catch (e) {}
-    pushOverridesToGithub();
+    queuePushToGithub();
   }
   // 기존 가락은 저장된 수정 내용을 겹쳐 적용하고, 관리자가 새로 만든 가락은
   // PATTERNS에 통째로 만들어 넣은 뒤 가락 목록(PATTERN_ORDER) 맨 뒤에 추가한다.
