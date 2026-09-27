@@ -1,5 +1,15 @@
 {
-  "patterns": {},
+  "patterns": {
+    "taryeong": {
+      "defaultBpm": 150
+    },
+    "chilchae_gibon": {
+      "defaultBpm": 280
+    },
+    "insagut": {
+      "defaultBpm": 150
+    }
+  },
   "defaultPlaylist": [
     "jjeokjjeogi_gut",
     "taryeong",
