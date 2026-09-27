@@ -1070,6 +1070,11 @@
     if (!pattern.sections.length) {
       var notice=document.createElement('p'); notice.textContent=pattern.note; grid.appendChild(notice);
     }
+    // 관리자 모드에서는 이 가락의 모든 줄이 한 번에 그려지므로, 지금 재생 중인
+    // 줄(.is-preview가 아닌 것)이 화면 중간·아래에 있을 수 있다 — 항상 맨 위로
+    // 스크롤해서 현재 줄이 잘리지 않고 보이게 한다.
+    var currentSystem = grid.querySelector('.score-system:not(.is-preview)');
+    if (currentSystem) currentSystem.scrollIntoView({ behavior: 'smooth', block: 'start' });
     renderVisibilityToggles(Object.keys(cellEls).filter(function(key){return key !== 'sangsoe' || pattern.sections.some(function(s){return s.cells.sangsoe && !s.lastPassSignal;});})); applyTrackVisibility();
     nowPlayingEl.textContent=pattern.name + (block.section ? ' · '+block.section.label : '') +
       (block.repeatTotal>1 ? ' · '+(block.repeatIndex+1)+'/'+block.repeatTotal+'회' : '');
