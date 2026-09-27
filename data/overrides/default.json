@@ -1588,6 +1588,152 @@
                 "strike_count": 0,
                 "sourceRow": 32
               }
+            ],
+            "gueum": [
+              {
+                "id": "c1",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c2",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c3",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c4",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c5",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c6",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c7",
+                "label": "",
+                "strike_count": 0,
+                "measure": 3
+              },
+              {
+                "id": "c8",
+                "label": "",
+                "strike_count": 0,
+                "measure": 3
+              },
+              {
+                "id": "c9",
+                "label": "",
+                "strike_count": 0,
+                "measure": 3
+              },
+              {
+                "id": "c10",
+                "label": "",
+                "strike_count": 0,
+                "measure": 4
+              },
+              {
+                "id": "c11",
+                "label": "",
+                "strike_count": 0,
+                "measure": 4
+              },
+              {
+                "id": "c12",
+                "label": "",
+                "strike_count": 0,
+                "measure": 4
+              },
+              {
+                "id": "c13",
+                "label": "",
+                "strike_count": 0,
+                "measure": 5
+              },
+              {
+                "id": "c14",
+                "label": "",
+                "strike_count": 0,
+                "measure": 5
+              },
+              {
+                "id": "c15",
+                "label": "",
+                "strike_count": 0,
+                "measure": 5
+              },
+              {
+                "id": "c16",
+                "label": "",
+                "strike_count": 0,
+                "measure": 6
+              },
+              {
+                "id": "c17",
+                "label": "",
+                "strike_count": 0,
+                "measure": 6
+              },
+              {
+                "id": "c18",
+                "label": "",
+                "strike_count": 0,
+                "measure": 6
+              },
+              {
+                "id": "c19",
+                "label": "",
+                "strike_count": 0,
+                "measure": 7
+              },
+              {
+                "id": "c20",
+                "label": "",
+                "strike_count": 0,
+                "measure": 7
+              },
+              {
+                "id": "c21",
+                "label": "",
+                "strike_count": 0,
+                "measure": 7
+              },
+              {
+                "id": "c22",
+                "label": "",
+                "strike_count": 0,
+                "measure": 8
+              },
+              {
+                "id": "c23",
+                "label": "",
+                "strike_count": 0,
+                "measure": 8
+              },
+              {
+                "id": "c24",
+                "label": "",
+                "strike_count": 0,
+                "measure": 8
+              }
             ]
           },
           "beatLabels": [
@@ -3213,6 +3359,152 @@
                 "strike_count": 0,
                 "sourceRow": 38
               }
+            ],
+            "gueum": [
+              {
+                "id": "c1",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c2",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c3",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c4",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c5",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c6",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c7",
+                "label": "",
+                "strike_count": 0,
+                "measure": 3
+              },
+              {
+                "id": "c8",
+                "label": "",
+                "strike_count": 0,
+                "measure": 3
+              },
+              {
+                "id": "c9",
+                "label": "",
+                "strike_count": 0,
+                "measure": 3
+              },
+              {
+                "id": "c10",
+                "label": "",
+                "strike_count": 0,
+                "measure": 4
+              },
+              {
+                "id": "c11",
+                "label": "",
+                "strike_count": 0,
+                "measure": 4
+              },
+              {
+                "id": "c12",
+                "label": "",
+                "strike_count": 0,
+                "measure": 4
+              },
+              {
+                "id": "c13",
+                "label": "",
+                "strike_count": 0,
+                "measure": 5
+              },
+              {
+                "id": "c14",
+                "label": "",
+                "strike_count": 0,
+                "measure": 5
+              },
+              {
+                "id": "c15",
+                "label": "",
+                "strike_count": 0,
+                "measure": 5
+              },
+              {
+                "id": "c16",
+                "label": "",
+                "strike_count": 0,
+                "measure": 6
+              },
+              {
+                "id": "c17",
+                "label": "",
+                "strike_count": 0,
+                "measure": 6
+              },
+              {
+                "id": "c18",
+                "label": "",
+                "strike_count": 0,
+                "measure": 6
+              },
+              {
+                "id": "c19",
+                "label": "",
+                "strike_count": 0,
+                "measure": 7
+              },
+              {
+                "id": "c20",
+                "label": "",
+                "strike_count": 0,
+                "measure": 7
+              },
+              {
+                "id": "c21",
+                "label": "",
+                "strike_count": 0,
+                "measure": 7
+              },
+              {
+                "id": "c22",
+                "label": "",
+                "strike_count": 0,
+                "measure": 8
+              },
+              {
+                "id": "c23",
+                "label": "",
+                "strike_count": 0,
+                "measure": 8
+              },
+              {
+                "id": "c24",
+                "label": "",
+                "strike_count": 0,
+                "measure": 8
+              }
             ]
           },
           "beatLabels": [
@@ -3286,6 +3578,32 @@
                 "label": "따",
                 "strike_count": 1,
                 "sourceRow": 40
+              }
+            ],
+            "gueum": [
+              {
+                "id": "c1",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c2",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c3",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c4",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
               }
             ]
           },
@@ -4581,12 +4899,6 @@
                 "mnemonic": ""
               },
               {
-                "id": "c31",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
-              },
-              {
                 "id": "c17",
                 "measure": 1,
                 "label": "",
@@ -4811,12 +5123,6 @@
                 "mnemonic": "친"
               },
               {
-                "id": "c31",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
-              },
-              {
                 "id": "c17",
                 "measure": 1,
                 "label": "갱",
@@ -5029,12 +5335,6 @@
                 "strike_count": 1
               },
               {
-                "id": "c31",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
-              },
-              {
                 "id": "c17",
                 "measure": 1,
                 "label": "궁",
@@ -5228,12 +5528,6 @@
               },
               {
                 "id": "c16",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
-              },
-              {
-                "id": "c31",
                 "measure": 1,
                 "label": "",
                 "strike_count": 0
@@ -5433,12 +5727,6 @@
                 "strike_count": 0
               },
               {
-                "id": "c31",
-                "measure": 1,
-                "label": "",
-                "strike_count": 0
-              },
-              {
                 "id": "c17",
                 "measure": 1,
                 "label": "징",
@@ -5534,6 +5822,200 @@
                 "label": "",
                 "strike_count": 0
               }
+            ],
+            "gueum": [
+              {
+                "id": "c1",
+                "label": "친",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c2",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c3",
+                "label": "구",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c4",
+                "label": "야",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c5",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c6",
+                "label": "사",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c7",
+                "label": "랑",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c8",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c9",
+                "label": "해",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c10",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c11",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c12",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c13",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c14",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c15",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c16",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c17",
+                "label": "친",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c18",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c19",
+                "label": "구",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c20",
+                "label": "야",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c21",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c22",
+                "label": "사",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c23",
+                "label": "랑",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c24",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c25",
+                "label": "해",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c26",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c27",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c28",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c29",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c30",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c32",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c33",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              }
             ]
           },
           "beatLabels": [
@@ -5568,8 +6050,7 @@
             "29",
             "30",
             "31",
-            "32",
-            "33"
+            "32"
           ],
           "groups": [
             15,
@@ -6117,6 +6598,104 @@
                 "measure": 2,
                 "label": "",
                 "strike_count": 0
+              }
+            ],
+            "gueum": [
+              {
+                "id": "c1",
+                "label": "친",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c2",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c3",
+                "label": "구",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c4",
+                "label": "야",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c5",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c6",
+                "label": "사",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c7",
+                "label": "랑",
+                "strike_count": 1,
+                "measure": 1
+              },
+              {
+                "id": "c8",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c9",
+                "label": "해",
+                "strike_count": 1,
+                "measure": 2
+              },
+              {
+                "id": "c10",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c11",
+                "label": "구",
+                "strike_count": 1,
+                "measure": 2
+              },
+              {
+                "id": "c12",
+                "label": "야",
+                "strike_count": 1,
+                "measure": 2
+              },
+              {
+                "id": "c13",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c14",
+                "label": "사",
+                "strike_count": 1,
+                "measure": 2
+              },
+              {
+                "id": "c15",
+                "label": "랑",
+                "strike_count": 1,
+                "measure": 2
+              },
+              {
+                "id": "c16",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
               }
             ]
           },
@@ -6688,6 +7267,104 @@
                 "label": "",
                 "strike_count": 0
               }
+            ],
+            "gueum": [
+              {
+                "id": "c1",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c2",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c3",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c4",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c5",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c6",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c7",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c8",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c9",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c10",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c11",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c12",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c13",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c14",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c15",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c16",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              }
             ]
           },
           "beatLabels": [
@@ -7217,6 +7894,104 @@
                 "measure": 2,
                 "label": "",
                 "strike_count": 0
+              }
+            ],
+            "gueum": [
+              {
+                "id": "c1",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c2",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c3",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c4",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c5",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c6",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c7",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c8",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c9",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c10",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c11",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c12",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c13",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c14",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c15",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c16",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
               }
             ]
           },
@@ -7753,6 +8528,104 @@
                 "label": "",
                 "strike_count": 0
               }
+            ],
+            "gueum": [
+              {
+                "id": "c1",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c2",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c3",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c4",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c5",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c6",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c7",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c8",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c9",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c10",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c11",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c12",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c13",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c14",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c15",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c16",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              }
             ]
           },
           "beatLabels": [
@@ -8287,6 +9160,104 @@
                 "measure": 2,
                 "label": "",
                 "strike_count": 0
+              }
+            ],
+            "gueum": [
+              {
+                "id": "c1",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c2",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c3",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c4",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c5",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c6",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c7",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c8",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c9",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c10",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c11",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c12",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c13",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c14",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c15",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c16",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
               }
             ]
           },
@@ -8826,6 +9797,104 @@
                 "measure": 2,
                 "label": "",
                 "strike_count": 0
+              }
+            ],
+            "gueum": [
+              {
+                "id": "c1",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c2",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c3",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c4",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c5",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c6",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c7",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c8",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c9",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c10",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c11",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c12",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c13",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c14",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c15",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c16",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
               }
             ]
           },
@@ -9369,6 +10438,104 @@
                 "measure": 2,
                 "label": "",
                 "strike_count": 0
+              }
+            ],
+            "gueum": [
+              {
+                "id": "c1",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c2",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c3",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c4",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c5",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c6",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c7",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c8",
+                "label": "",
+                "strike_count": 0,
+                "measure": 1
+              },
+              {
+                "id": "c9",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c10",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c11",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c12",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c13",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c14",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c15",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
+              },
+              {
+                "id": "c16",
+                "label": "",
+                "strike_count": 0,
+                "measure": 2
               }
             ]
           },
@@ -10967,6 +12134,182 @@
                 "measure": 0,
                 "label": "쩍",
                 "strike_count": 1
+              }
+            ],
+            "gueum": [
+              {
+                "id": "c1",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c2",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c3",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c4",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c16",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c15",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c14",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c13",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c12",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c11",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c10",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c9",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c8",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c7",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c6",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c5",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c21",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c20",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c19",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c18",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c17",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c31",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c30",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c29",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c28",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c27",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c26",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c25",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
+              },
+              {
+                "id": "c24",
+                "label": "",
+                "strike_count": 0,
+                "measure": 0
               }
             ]
           },
