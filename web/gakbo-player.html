@@ -390,6 +390,7 @@
     font-size: 11px;
     color: var(--ink-muted);
     white-space: nowrap;
+    cursor: pointer;
   }
 
   .cell {
@@ -998,7 +999,13 @@
           var isDivider = section.dividers && section.dividers.indexOf(index) !== -1;
           if (!index || c.measure !== cells[index-1].measure || isDivider) el.classList.add('measure-start');
           if (index === cells.length-1 || c.measure !== cells[index+1].measure) el.classList.add('measure-end');
-          if (header) el.textContent = section.beatLabels[index] || '';
+          if (header) {
+            el.textContent = section.beatLabels[index] || '';
+            // 박자 번호는 편집 대상이 아니라서, 관리자 모드에서 칸 글자가
+            // 편집 모드로 바뀌어 있을 때도 이 번호를 누르면 항상 그 박자부터
+            // 재생하도록 한다 (관리자 모드에서 재생 위치를 옮길 유일한 방법).
+            if (interactive) el.addEventListener('click', function () { jumpToScoreCell(sectionIndex, index); });
+          }
           else {
             var text = document.createElement('span'); text.className='label'; text.textContent=c.label;
             if (['sangsoe','busoe'].includes(key) && c.mnemonic) { el.title=c.mnemonic; var cue=document.createElement('span'); cue.className='phrase-cue'; cue.textContent=c.mnemonic; el.appendChild(cue); }
