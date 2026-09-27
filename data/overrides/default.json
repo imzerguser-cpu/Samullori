@@ -4581,6 +4581,12 @@
                 "mnemonic": ""
               },
               {
+                "id": "c31",
+                "measure": 1,
+                "label": "",
+                "strike_count": 0
+              },
+              {
                 "id": "c17",
                 "measure": 1,
                 "label": "",
@@ -4677,6 +4683,18 @@
                 "label": "",
                 "strike_count": 0,
                 "mnemonic": ""
+              },
+              {
+                "id": "c32",
+                "measure": 1,
+                "label": "",
+                "strike_count": 0
+              },
+              {
+                "id": "c33",
+                "measure": 1,
+                "label": "",
+                "strike_count": 0
               }
             ],
             "busoe": [
@@ -4793,6 +4811,12 @@
                 "mnemonic": "친"
               },
               {
+                "id": "c31",
+                "measure": 1,
+                "label": "",
+                "strike_count": 0
+              },
+              {
                 "id": "c17",
                 "measure": 1,
                 "label": "갱",
@@ -4889,6 +4913,18 @@
                 "label": "",
                 "strike_count": 0,
                 "mnemonic": ""
+              },
+              {
+                "id": "c32",
+                "measure": 1,
+                "label": "",
+                "strike_count": 0
+              },
+              {
+                "id": "c33",
+                "measure": 1,
+                "label": "",
+                "strike_count": 0
               }
             ],
             "janggu": [
@@ -4993,6 +5029,12 @@
                 "strike_count": 1
               },
               {
+                "id": "c31",
+                "measure": 1,
+                "label": "",
+                "strike_count": 0
+              },
+              {
                 "id": "c17",
                 "measure": 1,
                 "label": "궁",
@@ -5079,6 +5121,18 @@
                 "label": "기따",
                 "strike_count": 1,
                 "voiceLabel": "따"
+              },
+              {
+                "id": "c32",
+                "measure": 1,
+                "label": "쿵",
+                "strike_count": 1
+              },
+              {
+                "id": "c33",
+                "measure": 1,
+                "label": "다",
+                "strike_count": 1
               }
             ],
             "buk": [
@@ -5179,6 +5233,12 @@
                 "strike_count": 0
               },
               {
+                "id": "c31",
+                "measure": 1,
+                "label": "",
+                "strike_count": 0
+              },
+              {
                 "id": "c17",
                 "measure": 1,
                 "label": "둥",
@@ -5258,6 +5318,18 @@
               },
               {
                 "id": "c30",
+                "measure": 1,
+                "label": "",
+                "strike_count": 0
+              },
+              {
+                "id": "c32",
+                "measure": 1,
+                "label": "",
+                "strike_count": 0
+              },
+              {
+                "id": "c33",
                 "measure": 1,
                 "label": "",
                 "strike_count": 0
@@ -5361,6 +5433,12 @@
                 "strike_count": 0
               },
               {
+                "id": "c31",
+                "measure": 1,
+                "label": "",
+                "strike_count": 0
+              },
+              {
                 "id": "c17",
                 "measure": 1,
                 "label": "징",
@@ -5443,6 +5521,18 @@
                 "measure": 1,
                 "label": "",
                 "strike_count": 0
+              },
+              {
+                "id": "c32",
+                "measure": 1,
+                "label": "",
+                "strike_count": 0
+              },
+              {
+                "id": "c33",
+                "measure": 1,
+                "label": "",
+                "strike_count": 0
               }
             ]
           },
@@ -5476,7 +5566,10 @@
             "27",
             "28",
             "29",
-            "30"
+            "30",
+            "31",
+            "32",
+            "33"
           ],
           "groups": [
             15,
@@ -5486,7 +5579,7 @@
           "note": "상쇠 1~15박 → 부쇠 1~15박 · 각 해(9박) 이후 10~15박 쉼",
           "exchangeColors": true,
           "dividers": [
-            17
+            16
           ],
           "lineBreaks": []
         },
