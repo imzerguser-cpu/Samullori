@@ -1052,6 +1052,9 @@
         if (key === section.lastPassSignal || (section.signalTracks || []).includes(key)) {
           line.classList.add('signal-row'); label.textContent='상쇠 신호';
         }
+        if (section.finalRepeatCells && section.finalRepeatCells[key] && systemBlock.repeatIndex === systemBlock.repeatTotal - 1) {
+          line.classList.add('signal-row');
+        }
         line.appendChild(wrapsContainer); scroll.appendChild(line);
       }
       row('', '박자', reference, true);
