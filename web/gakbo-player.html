@@ -483,7 +483,6 @@
 .yukchae-layout .row-label { font-size:14px; }
 .score-system .cell.janggu-cross .label { color:#8a2387; text-decoration:underline; text-underline-offset:4px; font-weight:700; }
 .janggu-technique-legend { color:#8a2387; font-size:13px; grid-column:1 / -1; }
-.score-system .cell .phrase-cue { position:absolute; top:2px; left:3px; font-size:11px; color:var(--ink-muted); }
 
   .yukchae-layout .system-caption { font-size:20px; font-weight:700; color:var(--ink); line-height:1.5; }
   .saseol-layout .system-caption { font-size:18px; font-weight:700; color:var(--ink); }
@@ -906,12 +905,13 @@
     return row;
   }
 
-  function buildGueumCells(kkCells) {
-    return kkCells.map(function (c) {
+  function buildGueumCells(reference, mnemonics) {
+    return reference.map(function (c, i) {
+      var m = (mnemonics && mnemonics[i]) || "";
       return {
         id: c.id,
-        label: c.mnemonic || "",
-        strike_count: c.mnemonic ? 1 : 0,
+        label: m,
+        strike_count: m ? 1 : 0,
         measure: c.measure
       };
     });
@@ -1009,7 +1009,6 @@
           }
           else {
             var text = document.createElement('span'); text.className='label'; text.textContent=c.label;
-            if (['sangsoe','busoe'].includes(key) && c.mnemonic) { el.title=c.mnemonic; var cue=document.createElement('span'); cue.className='phrase-cue'; cue.textContent=c.mnemonic; el.appendChild(cue); }
             if (key === 'janggu' && c.crossStick) { el.classList.add('janggu-cross'); el.title='궁채를 넘겨 채편 연주'; }
             el.appendChild(text);
             if (interactive) {
@@ -1349,9 +1348,25 @@
   }
   function tracksFor(section) {
     var result = Object.assign({}, section.cells);
-    if (!result.gueum && result.kkwaenggwari && result.kkwaenggwari.some(function(c) { return c.mnemonic; })) {
-      result.gueum = buildGueumCells(result.kkwaenggwari);
+    if (!section.cells.gueum) {
+      // 관리자 모드에서 이 자리에 바로 써넣은 내용이 남아있도록, 매번 새로
+      // 만들지 않고 section.cells에 한 번만 실제로 붙여서 계속 재사용한다.
+      if (result.kkwaenggwari && result.kkwaenggwari.some(function(c) { return c.mnemonic; })) {
+        section.cells.gueum = buildGueumCells(result.kkwaenggwari, result.kkwaenggwari.map(function(c){ return c.mnemonic; }));
+      } else if ((result.sangsoe && result.sangsoe.some(function(c) { return c.mnemonic; })) ||
+                 (result.busoe && result.busoe.some(function(c) { return c.mnemonic; }))) {
+        var reference = result.sangsoe || result.busoe;
+        var merged = reference.map(function(c, i) {
+          return (result.sangsoe && result.sangsoe[i] && result.sangsoe[i].mnemonic) ||
+                 (result.busoe && result.busoe[i] && result.busoe[i].mnemonic) || "";
+        });
+        section.cells.gueum = buildGueumCells(reference, merged);
+      } else {
+        // 구음 자료가 아예 없는 가락도 맨 위에 빈 구음 줄 자리를 항상 보여준다.
+        section.cells.gueum = buildGueumCells(section.cells[section.instruments[0]], []);
+      }
     }
+    result.gueum = section.cells.gueum;
     return result;
   }
   async function prepareAudio() {
