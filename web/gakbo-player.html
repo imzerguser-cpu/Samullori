@@ -144,6 +144,9 @@
   .admin-table th, .admin-table td { padding: 5px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
   .admin-table input[type="number"] { width: 68px; font: inherit; padding: 3px 6px; }
   .admin-table input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
+  .admin-table td.section-toggles { white-space: normal; min-width: 220px; max-width: 420px; }
+  .section-toggle { display: inline-flex; align-items: center; gap: 3px; margin: 2px 10px 2px 0; font-size: 12.5px; color: var(--ink-muted); cursor: pointer; white-space: nowrap; }
+  .section-toggle input { width: 14px; height: 14px; }
 
   /* 관리자 모드에서 칸 편집 팝오버 */
   .cell.is-admin-editable { cursor: text; }
@@ -654,7 +657,7 @@
     <img class="manual-shot" src="manual-images/shot5-cellmenu.png" alt="칸을 오른쪽 클릭하면 뜨는 편집 메뉴" style="max-width:280px;">
     <ul>
       <li>수정한 내용은 아래 스크린샷처럼 관리자 패널의 <strong>전체 저장</strong> 버튼을 눌러야 실제로 저장됩니다. 저장을 누르면 이 컴퓨터뿐 아니라(처음 한 번은 GitHub 토큰을 물어봅니다) 다른 컴퓨터에서 같은 가락보를 열었을 때도 잠시 후 똑같이 반영됩니다.</li>
-      <li><strong>가락 속도 설정하기</strong>(제목을 누르면 펼쳐집니다)에서는 가락별 기본 속도(BPM)와, 페이지를 처음 열었을 때 재생 목록에 기본으로 들어갈지를 정합니다.</li>
+      <li><strong>가락 속도 설정하기</strong>(제목을 누르면 펼쳐집니다)에서는 가락별 기본 속도(BPM)와, 페이지를 처음 열었을 때 재생 목록에 기본으로 들어갈지를 정합니다. 짝쇠·짝쇠 주고받기처럼 한 가락 안에 여러 줄이 있는 경우, 같은 표의 <strong>"이 가락 안의 줄"</strong> 칸에서 줄마다 체크를 켜고 끌 수 있습니다 — 체크를 풀면 그 줄은 완전히 지워지는 게 아니라 재생·화면에서만 잠시 빠지고, 언제든 다시 체크하면 그대로 되살아납니다.</li>
       <li><strong>가락 목록</strong> 제목 옆의 "새 가락 추가"에서 가락 이름·악기 구성·칸 수를 정해 새 가락을 만들 수 있습니다. 칸은 전부 쉼으로 시작하니 재생 화면에서 글자를 채워 넣으세요.</li>
     </ul>
     <img class="manual-shot" src="manual-images/shot3b-adminpanel-top.png" alt="관리자 패널의 CSV 내보내기, 비밀번호 변경, 수정사항 내보내기/가져오기 버튼">
@@ -1204,13 +1207,14 @@
       }
       for (var pass=0;pass<repeats;pass++) {
         pattern.sections.forEach(function(s,i) {
+          if (s.disabled) return; // 관리자가 이 줄을 재생에서 뺐다 — 데이터는 그대로 남아 언제든 되살릴 수 있다
           if (s.ending) return;
           if (s.introOnly && pass > 0) return; // 시작 신호: 첫 회차에만 한 번
           var count=s.passVolumes ? s.passVolumes.length : (s.repeat || 1);
           for(var r=0;r<count;r++) append(s,i,repeats>1?pass:r,repeats>1?repeats:count,s.passVolumes?s.passVolumes[r]:1);
         });
       }
-      pattern.sections.forEach(function(s,i){if(s.ending) append(s,i,0,1);});
+      pattern.sections.forEach(function(s,i){if(s.ending && !s.disabled) append(s,i,0,1);});
     });
     return result;
   }
@@ -1717,21 +1721,29 @@
   });
 
   function renderAdminTable() {
-    var rows = ['<thead><tr><th>가락</th><th>기본 BPM</th><th>기본 재생목록에 포함</th></tr></thead><tbody>'];
+    var rows = ['<thead><tr><th>가락</th><th>기본 BPM</th><th>기본 재생목록에 포함</th><th>이 가락 안의 줄</th></tr></thead><tbody>'];
     var effectiveDefault = (adminOverrides.defaultPlaylist && adminOverrides.defaultPlaylist.length) ? adminOverrides.defaultPlaylist : DEFAULT_PLAYLIST;
     PATTERN_ORDER.forEach(function (id) {
       var pattern = PATTERNS[id];
       var checked = effectiveDefault.indexOf(id) !== -1;
+      var sectionsCell = pattern.sections.length > 1
+        ? pattern.sections.map(function (s, si) {
+            var on = !s.disabled;
+            return '<label class="section-toggle" title="체크를 풀면 이 줄은 재생·화면에서 빠지고, 다시 체크하면 언제든 되살아납니다.">' +
+              '<input type="checkbox" data-section-toggle="' + id + '|' + si + '"' + (on ? ' checked' : '') + '> ' + s.label + '</label>';
+          }).join('')
+        : '<span class="admin-hint">-</span>';
       rows.push('<tr><td>' + pattern.name + '</td>' +
         '<td><input type="number" min="20" max="800" step="5" data-bpm-id="' + id + '" value="' + (pattern.defaultBpm || 90) + '"></td>' +
-        '<td><input type="checkbox" data-playlist-id="' + id + '"' + (checked ? ' checked' : '') + '></td></tr>');
+        '<td><input type="checkbox" data-playlist-id="' + id + '"' + (checked ? ' checked' : '') + '></td>' +
+        '<td class="section-toggles">' + sectionsCell + '</td></tr>');
     });
     rows.push('</tbody>');
     adminTableEl.innerHTML = rows.join('');
   }
 
   adminTableEl.addEventListener('change', function (e) {
-    var bpmId = e.target.dataset.bpmId, playlistId = e.target.dataset.playlistId;
+    var bpmId = e.target.dataset.bpmId, playlistId = e.target.dataset.playlistId, sectionToggle = e.target.dataset.sectionToggle;
     if (bpmId) {
       var value = Math.max(20, Math.min(800, parseInt(e.target.value, 10) || 90));
       PATTERNS[bpmId].defaultBpm = value;
@@ -1744,6 +1756,14 @@
       current = PATTERN_ORDER.filter(function (id) { return current.indexOf(id) !== -1; });
       adminOverrides.defaultPlaylist = current;
       saveAdminOverrides();
+    } else if (sectionToggle) {
+      // 줄(섹션) 단위로 재생·화면에서 빼고 넣기 — 완전히 지우지 않고 "disabled"만
+      // 표시해서, 재생목록처럼 언제든 다시 체크해 되살릴 수 있게 한다. 다른 칸
+      // 수정과 마찬가지로 "전체 저장"을 눌러야 이 가락보에 실제로 저장된다.
+      var parts = sectionToggle.split('|');
+      var patternId = parts[0], sectionIndex = Number(parts[1]);
+      PATTERNS[patternId].sections[sectionIndex].disabled = !e.target.checked;
+      applyPatternEdit(patternId);
     }
   });
 
