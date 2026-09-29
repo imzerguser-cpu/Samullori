@@ -1567,10 +1567,17 @@
     }
     frameId = requestAnimationFrame(drawAudioPosition);
   }
+  // 가락이 바뀌는 순간 화면 전체를 새로 그리느라(특히 악기 구성이 많이
+  // 달라지는 다음 가락으로 넘어갈 때) 메인 스레드가 잠깐 멈추는 경우가
+  // 있는데, 이 값이 너무 작으면 그 짧은 멈춤도 "긴 중단"으로 오인해 남은
+  // 박자를 건너뛰고 무음 구간을 만들어버린다(쩍쩍이굿→타령장단처럼 첫
+  // 가락들에서 화면 구성이 크게 바뀔 때 특히 두드러짐). 정말 탭을 오래
+  // 백그라운드에 두는 등 드물게 긴 중단일 때만 건너뛰도록 여유를 넉넉히 둔다.
+  var SCHEDULER_RESUME_TOLERANCE = 1.2;
   function scheduleAudio() {
     if (!playing) return;
     // Long suspension: resume from the next musical cell, never burst overdue notes.
-    if (nextTime < ctx.currentTime + audioLookahead - 0.12) nextTime = ctx.currentTime + audioLookahead;
+    if (nextTime < ctx.currentTime + audioLookahead - SCHEDULER_RESUME_TOLERANCE) nextTime = ctx.currentTime + audioLookahead;
     while (nextBlock < blocks.length && nextTime < ctx.currentTime + audioLookahead) {
       var seconds = 60 / blockTempo(blocks[nextBlock]);
       scheduleCell(nextBlock, nextCell, nextTime, seconds);
